@@ -1,0 +1,1 @@
+# android_device_amazon_mt8173-common
