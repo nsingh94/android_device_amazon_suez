@@ -124,3 +124,22 @@ BOARD_HAS_FLIPPED_SCREEN := true
 
 # Disable API check
 WITHOUT_CHECK_API := true
+
+# Seccomp filters
+BOARD_SECCOMP_POLICY += $(DEVICE_COMMON)/seccomp
+
+# SELinux
+BOARD_SEPOLICY_DIRS += \
+        $(DEVICE_COMMON)/sepolicy-mtk/basic/non_plat \
+        $(DEVICE_COMMON)/sepolicy-mtk/bsp/non_plat \
+        $(DEVICE_COMMON)/sepolicy-mt8173/basic \
+        $(DEVICE_COMMON)/sepolicy-mt8173/bsp \
+        $(DEVICE_COMMON)/sepolicy
+
+BOARD_PLAT_PUBLIC_SEPOLICY_DIR += \
+        $(DEVICE_COMMON)/sepolicy-mtk/basic/plat_public \
+        $(DEVICE_COMMON)/sepolicy-mtk/bsp/plat_public
+
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR += \
+        $(DEVICE_COMMON)/sepolicy-mtk/basic/plat_private \
+        $(DEVICE_COMMON)/sepolicy-mtk/bsp/plat_private
