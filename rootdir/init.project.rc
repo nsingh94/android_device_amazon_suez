@@ -143,6 +143,7 @@ service atci_service /system/bin/atci_service
 	user root
         disabled
 	group radio system
+
 service atcid-daemon-u /system/bin/atcid
 	user system
 	group radio system media
@@ -186,83 +187,16 @@ service wmtLoader /system/bin/wmt_loader
     class core
     oneshot
 
-
 service 66xx_launcher /system/bin/6620_launcher -m 4 -p /system/etc/firmware/
     user system
     group system
     class core
-
-service thermal_log /system/bin/thermal_log.sh
-        class late_start
-        user system
-        group system
-        oneshot
-        disabled
-
-service thermal_qa /system/bin/ThermalBenchmarkAutomation.sh
-       class late_start
-       user root
-       group root
-       oneshot
-       disabled
-
-service battery_log /system/bin/battery_log.sh
-	class main
-	user root
-	group system
-	oneshot
-	disabled
-
-service temperature_log /system/bin/temperature_log.sh
-	class main
-	user root
-	group system
-	oneshot
-	disabled
-
-service dmesg_log /system/bin/dmesg_log.sh
-	class main
-	user root
-	group system
-	oneshot
-	disabled
-
-service logcat_log /system/bin/logcat_log.sh
-	class main
-	user root
-	group system
-	oneshot
-	disabled
-
-# wifi_log_levels metrics service
-service wifi_log_levels /system/etc/wifi_log_levels.sh
-    class late_start
-    user root
-    group root
 
 #monitor battery status
 service bat_logging /system/bin/battery_lifetime_data
     class main
     user root
     group root
-
-on property:debug.log.thermal_qa.enable=y
-    start thermal_qa
-
-on property:vold.decrypt=trigger_restart_framework
-    start dmesg_log
-
-on property:debug.log.battery.enable=y
-    start battery_log
-
-on property:debug.log.temperature.enable=y
-    start temperature_log
-
-on property:debug.log.dmesg.enable=y
-    start dmesg_log
-
-on property:debug.log.logcat.enable=y
-    start logcat_log
 
 on property:sys.hwc.video_mode=1
     write /sys/devices/soc/soc:MTKFB@bf200000/backlight_mode mov
