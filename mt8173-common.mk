@@ -89,7 +89,8 @@ PRODUCT_PACKAGES += \
 
 # Shim Libraries
 PRODUCT_PACKAGES += \
-    libshim_log
+    libshim_log \
+    libshim_atomic
 
 WITH_EXFAT := true
 
