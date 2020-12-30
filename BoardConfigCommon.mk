@@ -155,4 +155,5 @@ TARGET_LD_SHIM_LIBS := \
     /system/vendor/lib64/libsrv_um.so|libshim_atomic.so \
     /system/vendor/lib/libcam_utils.so|libshim_ui.so \
     /system/vendor/lib/libmtk_mmutils.so|libshim_ui.so \
-    /system/vendor/lib64/libgui_ext.so|libshim_ui.so
+    /system/vendor/lib64/libgui_ext.so|libshim_ui.so \
+    /system/vendor/lib/libasp.so|libshim_parcel.so
