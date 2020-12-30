@@ -136,7 +136,7 @@ on post-fs-data
     chmod 444 /etc/radvd/radvd.conf
 
     # Mali 3D GPU driver
-    #insmod /system/lib/modules/mali.ko
+    #insmod /vendor/lib/modules/mali.ko
     chmod 666 /dev/mali0
     #chown system graphics /dev/mali
 
@@ -170,7 +170,7 @@ on post-fs-data
     mkdir /data/misc/rtc 0770 system system
 
     # M4U
-    #insmod /system/lib/modules/m4u.ko
+    #insmod /vendor/lib/modules/m4u.ko
     #mknod /dev/M4U_device c 188 0
     chmod 0444 /dev/m4u
     #chown system media /dev/M4U_device
@@ -287,13 +287,13 @@ on post-fs-data
     chown root radio /sys/devices/platform/Accdet_Driver/driver/accdet_call_state
 
     #VideoCodec
-    #insmod /system/lib/modules/vcodec_kernel_driver.ko
+    #insmod /vendor/lib/modules/vcodec_kernel_driver.ko
     mknod /dev/Vcodec c 160 0
     chmod 0660 /dev/Vcodec
     chown media system /dev/Vcodec
 
     #MJC
-    #insmod /system/lib/modules/mjc_kernel_driver.ko
+    #insmod /vendor/lib/modules/mjc_kernel_driver.ko
     #mknod /dev/MJC c 168 0
     chmod 0660 /dev/MJC
     chown system media /dev/MJC
@@ -381,8 +381,8 @@ on post-fs-data
     chown system graphics /dev/sw_sync
 
     # EM baseband file
-    chown root diag /system/bin/baseband_regdump
-    chmod 4750 /system/bin/baseband_regdump
+    chown root diag /vendor/bin/baseband_regdump
+    chmod 4750 /vendor/bin/baseband_regdump
 
     #pmu
     chown root radio /sys/devices/platform/mt-pmic/pmic_access_bank0
@@ -703,16 +703,16 @@ on property:vold.decrypt=trigger_shutdown_framework
     start swapoff_action
     write /proc/bootprof "trigger_shutdown_framework"
 
-service kisd /system/bin/kisd
+service kisd /vendor/bin/kisd
 	user root
 	group system
 
-service stop_modem /system/bin/md_ctrl 0
+service stop_modem /vendor/bin/md_ctrl 0
     class main
     disabled
     oneshot
 
-service start_modem /system/bin/md_ctrl 1
+service start_modem /vendor/bin/md_ctrl 1
     class main
     disabled
     oneshot
@@ -743,13 +743,13 @@ service bugreport /system/bin/dumpstate -d -p -B \
     oneshot
     keycodes 114 115 116
 
-service nvram_daemon /system/bin/nvram_daemon
+service nvram_daemon /vendor/bin/nvram_daemon
     class main
     user root
     group system
     oneshot
 
-service atci_service /system/bin/atci_service
+service atci_service /vendor/bin/atci_service
     class core
     socket atci-service stream 660 radio system
     socket atci-serv-fw stream 660 radio system
@@ -757,7 +757,7 @@ service atci_service /system/bin/atci_service
     disabled
     group radio system
 
-service atcid-daemon-u /system/bin/atcid
+service atcid-daemon-u /vendor/bin/atcid
     class main
     socket adb_atci_socket stream 660 radio system
     user system
@@ -765,7 +765,7 @@ service atcid-daemon-u /system/bin/atcid
     disabled
     oneshot
 
-service atcid-daemon-e /system/bin/atcid
+service atcid-daemon-e /vendor/bin/atcid
     class core
     socket adb_atci_socket stream 660 radio system
     user root
@@ -784,30 +784,30 @@ on property:persist.service.atci.autostart=1
 start atci_service
 start atcid-daemon-u
 
-service audio-daemon /system/bin/audiocmdservice_atci
+service audio-daemon /vendor/bin/audiocmdservice_atci
     class main
     socket atci-audio stream 660 root system
     user root
     disabled
     oneshot
 
-service pq /system/bin/pq
+service pq /vendor/bin/pq
     class main
     user system
     group system graphics
     oneshot
 
 # For WiFi High Speed calibration
-service autokd /system/bin/autokd
+service autokd /vendor/bin/autokd
     class core
     user system
     group system
 
-service p2p_supplicant /system/bin/wpa_supplicant \
+service p2p_supplicant /vendor/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
-    -I/system/etc/wifi/wpa_supplicant_overlay.conf -N \
+    -I/vendor/etc/wifi/wpa_supplicant_overlay.conf -N \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin \
-    -I/system/etc/wifi/p2p_supplicant_overlay.conf \
+    -I/vendor/etc/wifi/p2p_supplicant_overlay.conf \
     -O/data/misc/wifi/sockets -g@android:wpa_wlan0
     #   we will start as root and wpa_supplicant will switch to user wifi
     #   after setting up the capabilities required for WEXT
@@ -818,9 +818,9 @@ service p2p_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
-service wpa_supplicant /system/bin/wpa_supplicant \
+service wpa_supplicant /vendor/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin \
-    -I/system/etc/wifi/wpa_supplicant_overlay.conf \
+    -I/vendor/etc/wifi/wpa_supplicant_overlay.conf \
     -O/data/misc/wifi/sockets -g@android:wpa_wlan0
     #   we will start as root and wpa_supplicant will switch to user wifi
     #   after setting up the capabilities required for WEXT
@@ -832,49 +832,49 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     oneshot
 
 
-service dhcpcd_bt-pan /system/bin/dhcpcd -BK -dd
+service dhcpcd_bt-pan /vendor/bin/dhcpcd -BK -dd
     class main
     user root
     group net_admin net_raw
     disabled
     oneshot
 
-service dhcpcd_wlan0 /system/bin/dhcpcd -ABK -dd
+service dhcpcd_wlan0 /vendor/bin/dhcpcd -ABK -dd
     class main
     user root
     group net_admin net_raw
     disabled
     oneshot
 
-service dhcpcd_p2p /system/bin/dhcpcd -BK -dd -A
+service dhcpcd_p2p /vendor/bin/dhcpcd -BK -dd -A
     class main
     user root
     group net_admin net_raw
     disabled
     oneshot
 
-service iprenew_wlan0 /system/bin/dhcpcd -n
+service iprenew_wlan0 /vendor/bin/dhcpcd -n
     class main
     user dhcp
     group net_admin net_raw
     disabled
     oneshot
 
-service iprenew_p2p /system/bin/dhcpcd -n
+service iprenew_p2p /vendor/bin/dhcpcd -n
     class main
     user dhcp
     group net_admin net_raw
     disabled
     oneshot
 
-service dhcp_inform /system/bin/dhcpcd -s -BK -A
+service dhcp_inform /vendor/bin/dhcpcd -s -BK -A
     class main
     user root
     group system radio dhcp net_admin net_raw
     disabled
     oneshot
 
-service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
+service dhcpcd_eth0 /vendor/bin/dhcpcd -ABKL
     disabled
     oneshot
 
@@ -882,65 +882,65 @@ service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
 #sensor service (begin)
 #
 
-service msensord /system/bin/msensord
+service msensord /vendor/bin/msensord
     class main
     oneshot
 
-service s62xd /system/bin/s62xd
+service s62xd /vendor/bin/s62xd
     disabled
     user compass
     group system
     class main
 
-service ami304d /system/bin/ami304d
+service ami304d /vendor/bin/ami304d
     user system
     group system
     disabled
     class main
 
-service memsicd /system/bin/memsicd
+service memsicd /vendor/bin/memsicd
      disabled
     user system
     group system
     class main
 
-service memsicd3416x /system/bin/memsicd3416x
+service memsicd3416x /vendor/bin/memsicd3416x
      disabled
 	 user system
     group system
     class main
 
-service akmd8975 /system/bin/akmd8975
+service akmd8975 /vendor/bin/akmd8975
     disabled
     user system
     group system
     class main
 
-service akmd8963 /system/bin/akmd8963
+service akmd8963 /vendor/bin/akmd8963
     disabled
     user system
     group system
     class main
 
-service akmd09911 /system/bin/akmd09911
+service akmd09911 /vendor/bin/akmd09911
     disabled
     user system
     group system
     class main
 
-service bmm050d /system/bin/bmm050d
+service bmm050d /vendor/bin/bmm050d
     disabled
     user system
     group system
     class main
 
-service mc6420d /system/bin/mc6420d
+service mc6420d /vendor/bin/mc6420d
     disabled
     user system
     group system
     class main
 
-service AcdApiDaemon /system/bin/AcdApiDaemon
+service AcdApiDaemon /vendor/bin/AcdApiDaemon
     disabled
     user system
     group system
@@ -950,25 +950,25 @@ service AcdApiDaemon /system/bin/AcdApiDaemon
 #sensor service (end)
 #
 
-service thermal_manager /system/bin/thermal_manager
+service thermal_manager /vendor/bin/thermal_manager
     class main
     user root
     oneshot
 
 # IMG GPU init
-service pvrsrvctl /system/vendor/bin/pvrsrvctl --no-module  --start
+service pvrsrvctl /vendor/vendor/bin/pvrsrvctl --no-module  --start
 	class core
 	user root
 	group root
 	oneshot
  
 # GuiExt Server init
-service guiext-server /system/bin/guiext-server
+service guiext-server /vendor/bin/guiext-server
     class main
     user system
     group system graphics
 
-service rpmb_svc /system/bin/rpmb_svc
+service rpmb_svc /vendor/bin/rpmb_svc
     class main
     group system drmrpc
     disabled
