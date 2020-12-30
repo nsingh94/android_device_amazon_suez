@@ -149,6 +149,8 @@ DEVICE_MANIFEST_FILE := $(DEVICE_COMMON)/manifest.xml
 TARGET_LD_SHIM_LIBS := \
     /system/lib/liblog.so|libshim_log.so \
     /system/lib64/liblog.so|libshim_log.so \
+    /system/vendor/bin/amzn_dha_hmac|libshim_drm.so \
+    /system/vendor/bin/amzn_dha_tool|libshim_drm.so \
     /system/vendor/lib/hw/audio.primary.mt8173.so|libshim_atomic.so \
     /system/vendor/lib/libcam.hal3a.v3.so|libshim_atomic.so \
     /system/vendor/lib64/libgui_ext.so|libshim_atomic.so \

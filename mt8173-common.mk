@@ -92,7 +92,8 @@ PRODUCT_PACKAGES += \
     libshim_log \
     libshim_atomic \
     libshim_ui \
-    libshim_parcel
+    libshim_parcel \
+    libshim_drm
 
 WITH_EXFAT := true
 
