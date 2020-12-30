@@ -44,9 +44,12 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_COMMON)/configs/media_profiles.xml:system/etc/media_profiles.xml \
     $(DEVICE_COMMON)/configs/mtk_omx_core.cfg:system/etc/mtk_omx_core.cfg
 
+# Hidl
+include $(DEVICE_COMMON)/hidl.mk
+
 # Audio
 PRODUCT_PACKAGES += \
-	audio.a2dp.default \
+    audio.a2dp.default \
     audio.r_submix.default \
     audio.usb.default \
     audio_policy.stub \
@@ -62,7 +65,7 @@ PRODUCT_PACKAGES += \
 # Bluetooth
 PRODUCT_PACKAGES += \
 	bluetooth.default
-	
+
 # Graphics
 PRODUCT_PACKAGES += \
     libion

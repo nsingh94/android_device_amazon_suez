@@ -143,3 +143,6 @@ BOARD_PLAT_PUBLIC_SEPOLICY_DIR += \
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += \
         $(DEVICE_COMMON)/sepolicy-mtk/basic/plat_private \
         $(DEVICE_COMMON)/sepolicy-mtk/bsp/plat_private
+
+# HIDL
+DEVICE_MANIFEST_FILE := $(DEVICE_COMMON)/manifest.xml
