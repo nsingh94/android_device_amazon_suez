@@ -93,7 +93,8 @@ PRODUCT_PACKAGES += \
     libshim_atomic \
     libshim_ui \
     libshim_parcel \
-    libshim_drm
+    libshim_drm \
+    libshim_camera
 
 WITH_EXFAT := true
 
