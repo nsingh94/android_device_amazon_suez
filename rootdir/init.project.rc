@@ -96,12 +96,6 @@ on post-fs-data
     mkdir /data/misc/wpa_supplicant 0770 wifi wifi
     chown wifi wifi /data/misc/wifi
 
-#Define device for ATCID
-    chmod 660 /dev/ttyGS0
-    chown system /dev/ttyGS0
-    chmod 660 /dev/ttyGS1
-    chown system /dev/ttyGS1
-
 #Disable for one Single loader
 # Load WiFi Driver
 #   insmod /vendor/lib/modules/wlan_mt.ko
@@ -137,25 +131,6 @@ service fuse_usbotg /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/
 # Connectivity related services (Begin)
 #
 
-service atci_service /vendor/bin/atci_service
-	socket atci-service stream 660 radio system
-	socket atci-serv-fw stream 660 radio system
-	user root
-        disabled
-	group radio system
-
-service atcid-daemon-u /vendor/bin/atcid
-	user system
-	group radio system media
-	disabled
-	oneshot
-
-service atcid-daemon-e /vendor/bin/atcid
-	user root
-	group radio system
-	disabled
-	oneshot
-
 service amzn_drmprov /vendor/bin/amzn_drmprov_check
 	class main
 	user root
@@ -169,17 +144,6 @@ service amzn_dha_hmac /vendor/bin/amzn_dha_hmac
 	group system
 	oneshot
 	disabled
-
-on early_property:ro.build.type=eng
-start atci_service
-start atcid-daemon-e
-service audio-daemon /vendor/bin/audiocmdservice_atci
-    class main
-    socket atci-audio stream 660 media system
-    user media
-    group nvram media system sdcard_rw
-    disabled
-    oneshot
 
 service wmtLoader /vendor/bin/wmt_loader
     user root
