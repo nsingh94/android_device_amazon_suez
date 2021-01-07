@@ -153,6 +153,7 @@ TARGET_LD_SHIM_LIBS := \
     /system/vendor/bin/amzn_dha_tool|libshim_drm.so \
     /system/vendor/lib/hw/audio.primary.mt8173.so|libshim_atomic.so \
     /system/vendor/lib/libcam.hal3a.v3.so|libshim_atomic.so \
+    /system/vendor/lib/soundfx/libaudiofx.so|libshim_atomic.so \
     /system/vendor/lib64/libgui_ext.so|libshim_atomic.so \
     /system/vendor/lib64/libsrv_um.so|libshim_atomic.so \
     /system/vendor/lib/libcam_utils.so|libshim_ui.so \
