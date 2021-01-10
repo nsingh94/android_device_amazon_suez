@@ -44,9 +44,6 @@ PRODUCT_COPY_FILES += \
     device/amazon/suez/configs/media_profiles.xml:system/etc/media_profiles.xml \
     device/amazon/suez/configs/mtk_omx_core.cfg:system/etc/mtk_omx_core.cfg
 
-# Hidl
-include device/amazon/suez/hidl.mk
-
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \

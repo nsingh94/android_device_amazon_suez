@@ -17,7 +17,6 @@ LOCAL_PATH:= $(call my-dir)
 # HAL module implemenation, not prelinked and stored in
 # hw/<COPYPIX_HARDWARE_MODULE_ID>.<ro.board.platform>.so
 include $(CLEAR_VARS)
-LOCAL_HEADER_LIBRARIES := libhardware_headers
 
 LOCAL_SRC_FILES := lights.c
 LOCAL_MULTILIB := both
@@ -30,6 +29,6 @@ LOCAL_SHARED_LIBRARIES := liblog
 
 LOCAL_MODULE := lights.$(TARGET_BOARD_PLATFORM)
 LOCAL_PROPRIETARY_MODULE := true
+LOCAL_MODULE_OWNER := mtk
 
 include $(BUILD_SHARED_LIBRARY)
-include $(LOCAL_PATH)/2.0/default/Android.mk

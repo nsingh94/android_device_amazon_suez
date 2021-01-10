@@ -55,7 +55,7 @@
 #define LOG_TAG "lights"
 
 
-#include <log/log.h>
+#include <cutils/log.h>
 
 #include <stdint.h>
 #include <string.h>
@@ -139,14 +139,25 @@ char const*const BUTTON_FILE
         = "/sys/class/leds/button-backlight/brightness";
 
 //ALPS0804285 add for delay
-int led_wait_delay(unsigned int ms)
+int led_wait_delay(int ms) 
 {
-	struct timeval begin, curr;
-	long long time_diff = 0;
-	gettimeofday(&begin, NULL);
-	while ((unsigned int)time_diff < ms) {
-		gettimeofday(&curr, NULL);
-		time_diff = (curr.tv_sec*1000LL + curr.tv_usec/1000) - (begin.tv_sec*1000LL + begin.tv_usec/1000);
+	struct timespec req = {.tv_sec = 0, .tv_nsec = ms*1000000};
+	struct timespec rem;
+	int ret = nanosleep(&req, &rem);
+
+	while(ret)
+	{
+		if(errno == EINTR)
+		{
+			req.tv_sec  = rem.tv_sec;
+			req.tv_nsec = rem.tv_nsec;
+			ret = nanosleep(&req, &rem);
+		}
+		else
+		{
+			perror("nanosleep");
+			return errno;
+		}
 	}
 	return 0;
 }
@@ -347,7 +358,7 @@ blink_blue(int level, int onMS, int offMS)
 }
 
 static int
-handle_trackball_light_locked(__attribute__((__unused__)) struct light_device_t* dev)
+handle_trackball_light_locked(struct light_device_t* dev)
 {
     int mode = g_attention;
 
@@ -391,7 +402,7 @@ set_light_backlight(struct light_device_t* dev,
 }
 
 static int
-set_light_keyboard(__attribute__((__unused__)) struct light_device_t* dev,
+set_light_keyboard(struct light_device_t* dev,
         struct light_state_t const* state)
 {
     int err = 0;
@@ -403,7 +414,7 @@ set_light_keyboard(__attribute__((__unused__)) struct light_device_t* dev,
 }
 
 static int
-set_light_buttons(__attribute__((__unused__)) struct light_device_t* dev,
+set_light_buttons(struct light_device_t* dev,
         struct light_state_t const* state)
 {
     int err = 0;
@@ -416,7 +427,7 @@ set_light_buttons(__attribute__((__unused__)) struct light_device_t* dev,
 }
 
 static int
-set_speaker_light_locked(__attribute__((__unused__)) struct light_device_t* dev,
+set_speaker_light_locked(struct light_device_t* dev,
         struct light_state_t const* state)
 {
     int len;
@@ -563,45 +574,21 @@ static int open_lights(const struct hw_module_t* module, char const* name,
 
     if (0 == strcmp(LIGHT_ID_BACKLIGHT, name)) {
         set_light = set_light_backlight;
-        if (access(LCD_FILE, F_OK) < 0)
-            return -errno;
     }
     else if (0 == strcmp(LIGHT_ID_KEYBOARD, name)) {
         set_light = set_light_keyboard;
-        if (access(KEYBOARD_FILE, F_OK) < 0)
-            return -errno;
     }
     else if (0 == strcmp(LIGHT_ID_BUTTONS, name)) {
         set_light = set_light_buttons;
-        if (access(BUTTON_FILE, F_OK) < 0)
-            return -errno;
     }
     else if (0 == strcmp(LIGHT_ID_BATTERY, name)) {
         set_light = set_light_battery;
-        if (access(RED_LED_FILE, F_OK) < 0)
-            return -errno;
-        if (access(GREEN_LED_FILE, F_OK) < 0)
-            return -errno;
-        if (access(BLUE_LED_FILE, F_OK) < 0)
-            return -errno;
     }
     else if (0 == strcmp(LIGHT_ID_NOTIFICATIONS, name)) {
         set_light = set_light_notifications;
-        if (access(RED_LED_FILE, F_OK) < 0)
-            return -errno;
-        if (access(GREEN_LED_FILE, F_OK) < 0)
-            return -errno;
-        if (access(BLUE_LED_FILE, F_OK) < 0)
-            return -errno;
     }
     else if (0 == strcmp(LIGHT_ID_ATTENTION, name)) {
         set_light = set_light_attention;
-        if (access(RED_LED_FILE, F_OK) < 0)
-            return -errno;
-        if (access(GREEN_LED_FILE, F_OK) < 0)
-            return -errno;
-        if (access(BLUE_LED_FILE, F_OK) < 0)
-            return -errno;
     }
     else {
         return -EINVAL;
@@ -610,9 +597,6 @@ static int open_lights(const struct hw_module_t* module, char const* name,
     pthread_once(&g_init, init_globals);
 
     struct light_device_t *dev = malloc(sizeof(struct light_device_t));
-    if (!dev)
-        return -ENOMEM;
-
     memset(dev, 0, sizeof(*dev));
 
     dev->common.tag = HARDWARE_DEVICE_TAG;

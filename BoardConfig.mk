@@ -144,9 +144,6 @@ BOARD_PLAT_PRIVATE_SEPOLICY_DIR += \
         device/amazon/suez/sepolicy-mtk/basic/plat_private \
         device/amazon/suez/sepolicy-mtk/bsp/plat_private
 
-# HIDL
-DEVICE_MANIFEST_FILE := device/amazon/suez/manifest.xml
-
 # Shim Libraries
 TARGET_LD_SHIM_LIBS := \
     /system/lib/liblog.so|libshim_log.so \
