@@ -124,3 +124,12 @@ BOARD_HAS_FLIPPED_SCREEN := true
 
 # Disable API check
 WITHOUT_CHECK_API := true
+
+# SELinux
+BOARD_SEPOLICY_DIRS += \
+    device/amazon/suez/sepolicy
+
+# Media Extractors
+BOARD_SECCOMP_POLICY := \
+    device/amazon/suez/seccomp-policy
+
