@@ -84,15 +84,6 @@ PRODUCT_PACKAGES += \
     ebtables \
     ethertypes
 
-# Shim Libraries
-PRODUCT_PACKAGES += \
-    libshim_log \
-    libshim_atomic \
-    libshim_ui \
-    libshim_parcel \
-    libshim_drm \
-    libshim_camera
-
 WITH_EXFAT := true
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0

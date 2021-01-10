@@ -124,20 +124,3 @@ BOARD_HAS_FLIPPED_SCREEN := true
 
 # Disable API check
 WITHOUT_CHECK_API := true
-
-# Shim Libraries
-TARGET_LD_SHIM_LIBS := \
-    /system/lib/liblog.so|libshim_log.so \
-    /system/lib64/liblog.so|libshim_log.so \
-    /system/vendor/bin/amzn_dha_hmac|libshim_drm.so \
-    /system/vendor/bin/amzn_dha_tool|libshim_drm.so \
-    /system/vendor/lib/hw/audio.primary.mt8173.so|libshim_atomic.so \
-    /system/vendor/lib/libcam.hal3a.v3.so|libshim_atomic.so \
-    /system/vendor/lib/soundfx/libaudiofx.so|libshim_atomic.so \
-    /system/vendor/lib64/libgui_ext.so|libshim_atomic.so \
-    /system/vendor/lib64/libsrv_um.so|libshim_atomic.so \
-    /system/vendor/lib/libcam_utils.so|libshim_ui.so \
-    /system/vendor/lib/libmtk_mmutils.so|libshim_ui.so \
-    /system/vendor/lib64/libgui_ext.so|libshim_ui.so \
-    /system/vendor/lib/libasp.so|libshim_parcel.so \
-    /system/vendor/lib/libcam.utils.sensorlistener.so|libshim_camera.so
