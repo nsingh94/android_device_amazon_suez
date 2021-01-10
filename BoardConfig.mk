@@ -1,18 +1,15 @@
-DEVICE_COMMON := device/amazon/mt8173-common
-KERNEL_COMMON := kernel/amazon/mt8173-common
-VENDOR_COMMON := vendor/amazon/mt8173-common
-
 # headers
-TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_COMMON)/include
+TARGET_SPECIFIC_HEADER_PATH := device/amazon/suez/include
 
 # inherit from the proprietary version
--include $(VENDOR_COMMON)/BoardConfigVendor.mk
+-include vendor/amazon/suez/BoardConfigVendor.mk
 
 # Platform
 TARGET_BOARD_PLATFORM := mt8173
 
 # Bootloader
 TARGET_NO_BOOTLOADER := true
+TARGET_BOOTLOADER_BOARD_NAME := suez
 
 # Architecture
 TARGET_ARCH := arm64
@@ -36,12 +33,14 @@ BOARD_KERNEL_OFFSET := 0x00000000
 BOARD_KERNEL_TAGS_OFFSET := 0x07f80000
 BOARD_RAMDISK_OFFSET := 0x03400000
 BOARD_SECOND_OFFSET := 0x00e80000
-
 BOARD_MKBOOTIMG_ARGS := --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET) --second_offset $(BOARD_SECOND_OFFSET) 
-TARGET_KERNEL_ARCH := arm64
 
+TARGET_KERNEL_ARCH := arm64
+TARGET_KERNEL_CONFIG := suez_defconfig
+BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
-TARGET_KERNEL_SOURCE := $(KERNEL_COMMON)
+TARGET_KERNEL_SOURCE := kernel/amazon/suez
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 
 BOARD_HAS_MTK_HARDWARE := true
@@ -71,10 +70,10 @@ WIFI_DRIVER_FW_PATH_STA:=P2P
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_MTK := true
 BOARD_BLUETOOTH_DOES_NOT_USE_RFKILL := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_COMMON)/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/amazon/suez/bluetooth
 
 # Graphics
-BOARD_EGL_CFG := $(DEVICE_COMMON)/configs/egl.cfg
+BOARD_EGL_CFG := device/amazon/suez/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_OVERLAY := true
@@ -96,6 +95,9 @@ BOARD_CACHEIMAGE_PARTITION_SIZE := 444596224
 BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_USERIMAGES_USE_EXT4 := true
 
+# Assert
+TARGET_OTA_ASSERT_DEVICE := suez
+
 BLOCK_BASED_OTA := true
 
 # Vold
@@ -105,7 +107,7 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/mt_usb/musb-hdrc.0.auto
 ifneq (,$(strip $(wildcard bootable/recovery-twrp/twrp.cpp)))
 #RECOVERY_VARIANT := twrp
 endif
-DEVICE_RESOLUTION := 600x1024
+DEVICE_RESOLUTION := 1200x1920
 TW_EXCLUDE_MTP := false
 RECOVERY_SDCARD_ON_DATA := true
 TW_BRIGHTNESS_PATH := /sys/devices/platform/leds-mt65xx/leds/lcd-backlight/brightness
@@ -124,26 +126,26 @@ BOARD_HAS_FLIPPED_SCREEN := true
 WITHOUT_CHECK_API := true
 
 # Seccomp filters
-BOARD_SECCOMP_POLICY += $(DEVICE_COMMON)/seccomp
+BOARD_SECCOMP_POLICY += device/amazon/suez/seccomp
 
 # SELinux
 BOARD_SEPOLICY_DIRS += \
-        $(DEVICE_COMMON)/sepolicy-mtk/basic/non_plat \
-        $(DEVICE_COMMON)/sepolicy-mtk/bsp/non_plat \
-        $(DEVICE_COMMON)/sepolicy-mt8173/basic \
-        $(DEVICE_COMMON)/sepolicy-mt8173/bsp \
-        $(DEVICE_COMMON)/sepolicy
+        device/amazon/suez/sepolicy-mtk/basic/non_plat \
+        device/amazon/suez/sepolicy-mtk/bsp/non_plat \
+        device/amazon/suez/sepolicy-mt8173/basic \
+        device/amazon/suez/sepolicy-mt8173/bsp \
+        device/amazon/suez/sepolicy
 
 BOARD_PLAT_PUBLIC_SEPOLICY_DIR += \
-        $(DEVICE_COMMON)/sepolicy-mtk/basic/plat_public \
-        $(DEVICE_COMMON)/sepolicy-mtk/bsp/plat_public
+        device/amazon/suez/sepolicy-mtk/basic/plat_public \
+        device/amazon/suez/sepolicy-mtk/bsp/plat_public
 
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += \
-        $(DEVICE_COMMON)/sepolicy-mtk/basic/plat_private \
-        $(DEVICE_COMMON)/sepolicy-mtk/bsp/plat_private
+        device/amazon/suez/sepolicy-mtk/basic/plat_private \
+        device/amazon/suez/sepolicy-mtk/bsp/plat_private
 
 # HIDL
-DEVICE_MANIFEST_FILE := $(DEVICE_COMMON)/manifest.xml
+DEVICE_MANIFEST_FILE := device/amazon/suez/manifest.xml
 
 # Shim Libraries
 TARGET_LD_SHIM_LIBS := \
