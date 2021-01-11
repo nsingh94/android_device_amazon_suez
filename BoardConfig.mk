@@ -140,5 +140,7 @@ LINKER_FORCED_SHIM_LIBS := \
     /system/vendor/lib/libui_ext.so|libshim_ui.so \
     /system/vendor/lib64/libui_ext.so|libshim_ui.so \
     /system/vendor/lib/libcam_utils.so|libshim_ui.so \
-    /system/vendor/lib64/libcam_utils.so|libshim_ui.so
+    /system/vendor/lib64/libcam_utils.so|libshim_ui.so \
+    /system/vendor/lib/libasp.so|libshim_parcel.so \
+    /system/vendor/lib64/libasp.so|libshim_parcel.so
 
