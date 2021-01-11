@@ -142,5 +142,8 @@ LINKER_FORCED_SHIM_LIBS := \
     /system/vendor/lib/libcam_utils.so|libshim_ui.so \
     /system/vendor/lib64/libcam_utils.so|libshim_ui.so \
     /system/vendor/lib/libasp.so|libshim_parcel.so \
-    /system/vendor/lib64/libasp.so|libshim_parcel.so
-
+    /system/vendor/lib64/libasp.so|libshim_parcel.so \
+    /system/vendor/bin/amzn_dha_hmac|libshim_drm.so \
+    /system/vendor/bin/amzn_dha_tool|libshim_drm.so \
+    /system/vendor/lib/libdrmmtkutil.so|libshim_drm.so \
+    /system/vendor/lib64/libdrmmtkutil.so|libshim_drm.so

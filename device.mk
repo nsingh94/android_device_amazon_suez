@@ -88,7 +88,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libshim_log \
     libshim_ui \
-	libshim_parcel
+	libshim_parcel \
+    libshim_drm
 
 WITH_EXFAT := true
 
