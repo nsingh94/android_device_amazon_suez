@@ -955,7 +955,7 @@ service thermal_manager /vendor/bin/thermal_manager
     oneshot
 
 # IMG GPU init
-service pvrsrvctl /vendor/vendor/bin/pvrsrvctl --no-module  --start
+service pvrsrvctl /vendor/bin/pvrsrvctl --no-module  --start
 	class core
 	user root
 	group root
