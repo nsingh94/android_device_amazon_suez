@@ -133,3 +133,7 @@ BOARD_SEPOLICY_DIRS += \
 BOARD_SECCOMP_POLICY := \
     device/amazon/suez/seccomp-policy
 
+# Shim Libraries
+LINKER_FORCED_SHIM_LIBS := \
+    /system/lib/liblog.so|libshim_log.so \
+    /system/lib64/liblog.so|libshim_log.so
