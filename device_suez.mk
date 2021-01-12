@@ -1,10 +1,6 @@
 # Device overlay
 DEVICE_PACKAGE_OVERLAYS += device/amazon/suez/overlay
 
-# Install init.d scripts
-PRODUCT_COPY_FILES += \
-    device/amazon/suez/configs/99exfat-support:system/etc/init.d/99exfat-support
-
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Device uses high-density artwork where available
@@ -96,8 +92,6 @@ PRODUCT_PACKAGES += \
     libshim_ui \
 	libshim_parcel \
     libshim_drm
-
-WITH_EXFAT := true
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 

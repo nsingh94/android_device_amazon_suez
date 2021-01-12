@@ -11,4 +11,4 @@
 /dev/block/platform/mtk-msdc.0/by-name/tee2       /tee2           emmc      defaults defaults
 
 /devices/soc/11240000.mmc*  auto      auto      defaults        voldmanaged=sdcard1:auto,noemulatedsd
-/devices/soc/11270000.usb*  auto      auto      defaults        voldmanaged=usbotg:auto
+/devices/soc/11270000.usb*  auto      auto      defaults        voldmanaged=usb:auto
