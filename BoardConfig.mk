@@ -137,8 +137,6 @@ BOARD_SECCOMP_POLICY := \
 LINKER_FORCED_SHIM_LIBS := \
     /system/lib/liblog.so|libshim_log.so \
     /system/lib64/liblog.so|libshim_log.so \
-    /system/vendor/lib/libui_ext.so|libshim_ui.so \
-    /system/vendor/lib64/libui_ext.so|libshim_ui.so \
     /system/vendor/lib/libcam_utils.so|libshim_ui.so \
     /system/vendor/lib64/libcam_utils.so|libshim_ui.so \
     /system/vendor/lib/libasp.so|libshim_parcel.so \
