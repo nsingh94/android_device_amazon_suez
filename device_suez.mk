@@ -36,9 +36,9 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
-    device/amazon/suez/configs/media_codecs.xml:system/etc/media_codecs.xml \
-    device/amazon/suez/configs/media_profiles.xml:system/etc/media_profiles.xml \
-    device/amazon/suez/configs/mtk_omx_core.cfg:system/etc/mtk_omx_core.cfg
+    device/amazon/suez/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
+    device/amazon/suez/configs/media/media_profiles.xml:system/etc/media_profiles.xml \
+    device/amazon/suez/configs/media/mtk_omx_core.cfg:system/etc/mtk_omx_core.cfg
 
 # Audio
 PRODUCT_PACKAGES += \
