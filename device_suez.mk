@@ -86,6 +86,8 @@ PRODUCT_COPY_FILES += \
 
 # Audio Config files
 PRODUCT_COPY_FILES += \
+    device/amazon/suez/configs/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+    device/amazon/suez/configs/audio/audio_effects.xml:system/vendor/etc/audio_effects.xml \
     device/amazon/suez/configs/audio/audio_policy.conf:system/etc/audio_policy.conf \
     device/amazon/suez/configs/audio/mixer_paths.xml:system/etc/mixer_paths.xml \
     device/amazon/suez/configs/audio/AudioParamOptions.xml:system/etc/audio_param/AudioParamOptions.xml
