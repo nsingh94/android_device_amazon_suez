@@ -30,15 +30,64 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,device/amazon/suez/rootdir,root)
 
-# Config files
+# Media Config files
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     device/amazon/suez/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
+    device/amazon/suez/configs/media/media_codecs_mediatek_audio.xml:system/etc/media_codecs_mediatek_audio.xml \
+    device/amazon/suez/configs/media/media_codecs_mediatek_video.xml:system/etc/media_codecs_mediatek_video.xml \
+    device/amazon/suez/configs/media/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
     device/amazon/suez/configs/media/media_profiles.xml:system/etc/media_profiles.xml \
     device/amazon/suez/configs/media/mtk_omx_core.cfg:system/etc/mtk_omx_core.cfg
+
+# Graphics Config files
+PRODUCT_COPY_FILES += \
+    device/amazon/suez/configs/graphics/powervr.ini:system/etc/powervr.ini
+
+# Thermal Config files
+PRODUCT_COPY_FILES += \
+    device/amazon/suez/configs/thermal/.ht120.mtc:system/etc/.tp/.ht120.mtc \
+    device/amazon/suez/configs/thermal/thermal.conf:system/etc/.tp/thermal.conf \
+    device/amazon/suez/configs/thermal/thermal.off.conf:system/etc/.tp/thermal.off.conf \
+    device/amazon/suez/configs/thermal/thermal.policy.conf:system/etc/.tp/thermal.policy.conf
+
+# WiFi Config files
+PRODUCT_COPY_FILES += \
+    device/amazon/suez/configs/wifi/WMT.cfg:system/etc/firmware/WMT.cfg \
+    device/amazon/suez/configs/wifi/WMT_SOC.cfg:system/etc/firmware/WMT_SOC.cfg
+
+# Usr Config files
+PRODUCT_COPY_FILES += \
+    device/amazon/suez/configs/usr/idc/amazon_touch.idc:system/usr/idc/amazon_touch.idc \
+    device/amazon/suez/configs/usr/idc/lightning-device.idc:system/usr/idc/lightning-device.idc \
+    device/amazon/suez/configs/usr/keychars/lightning-device.kcm:system/usr/keychars/lightning-device.kcm \
+    device/amazon/suez/configs/usr/keylayout/ACCDET.kl:system/usr/keylayout/ACCDET.kl \
+    device/amazon/suez/configs/usr/keylayout/lightning-device.kl:system/usr/keylayout/lightning-device.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_0171_Product_040b.kl:system/usr/keylayout/Vendor_0171_Product_040b.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_0171_Product_040c.kl:system/usr/keylayout/Vendor_0171_Product_040c.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_0171_Product_0413.kl:system/usr/keylayout/Vendor_0171_Product_0413.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_045e_Product_0291.kl:system/usr/keylayout/Vendor_045e_Product_0291.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_046d_Product_c21e.kl:system/usr/keylayout/Vendor_046d_Product_c21e.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_054c_Product_05c4.kl:system/usr/keylayout/Vendor_054c_Product_05c4.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_057e_Product_0306.kl:system/usr/keylayout/Vendor_057e_Product_0306.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_1949_Product_0402.kl:system/usr/keylayout/Vendor_1949_Product_0402.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_1949_Product_0404.kl:system/usr/keylayout/Vendor_1949_Product_0404.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_1949_Product_0406.kl:system/usr/keylayout/Vendor_1949_Product_0406.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_1949_Product_0407.kl:system/usr/keylayout/Vendor_1949_Product_0407.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_1949_Product_0409.kl:system/usr/keylayout/Vendor_1949_Product_0409.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_1949_Product_040a.kl:system/usr/keylayout/Vendor_1949_Product_040a.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_1949_Product_0415.kl:system/usr/keylayout/Vendor_1949_Product_0415.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_20a0_Product_0004.kl:system/usr/keylayout/Vendor_20a0_Product_0004.kl \
+    device/amazon/suez/configs/usr/keylayout/Vendor_2836_Product_0001.kl:system/usr/keylayout/Vendor_2836_Product_0001.kl
+
+# Audio Config files
+PRODUCT_COPY_FILES += \
+    device/amazon/suez/configs/audio/audio_policy.conf:system/etc/audio_policy.conf \
+    device/amazon/suez/configs/audio/mixer_paths.xml:system/etc/mixer_paths.xml \
+    device/amazon/suez/configs/audio/AudioParamOptions.xml:system/etc/audio_param/AudioParamOptions.xml
 
 # Audio
 PRODUCT_PACKAGES += \
