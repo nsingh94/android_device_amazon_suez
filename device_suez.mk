@@ -55,11 +55,6 @@ PRODUCT_COPY_FILES += \
     device/amazon/suez/configs/thermal/thermal.off.conf:system/etc/.tp/thermal.off.conf \
     device/amazon/suez/configs/thermal/thermal.policy.conf:system/etc/.tp/thermal.policy.conf
 
-# WiFi Config files
-PRODUCT_COPY_FILES += \
-    device/amazon/suez/configs/wifi/WMT.cfg:system/etc/firmware/WMT.cfg \
-    device/amazon/suez/configs/wifi/WMT_SOC.cfg:system/etc/firmware/WMT_SOC.cfg
-
 # Usr Config files
 PRODUCT_COPY_FILES += \
     device/amazon/suez/configs/usr/idc/amazon_touch.idc:system/usr/idc/amazon_touch.idc \
@@ -144,6 +139,14 @@ PRODUCT_PACKAGES += \
     libshim_ui \
 	libshim_parcel \
     libshim_drm
+
+# WiFi
+PRODUCT_PACKAGES += \
+    libwpa_client \
+    hostapd \
+    hostapd_cli \
+    libwifi-hal-mt66xx \
+    wpa_supplicant
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
