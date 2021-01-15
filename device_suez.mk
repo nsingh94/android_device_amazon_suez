@@ -138,7 +138,8 @@ PRODUCT_PACKAGES += \
     libshim_log \
     libshim_ui \
 	libshim_parcel \
-    libshim_drm
+    libshim_drm \
+    libshim_wvm
 
 # WiFi
 PRODUCT_PACKAGES += \

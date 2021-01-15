@@ -149,4 +149,5 @@ LINKER_FORCED_SHIM_LIBS := \
     /system/vendor/bin/amzn_dha_hmac|libshim_drm.so \
     /system/vendor/bin/amzn_dha_tool|libshim_drm.so \
     /system/vendor/lib/libdrmmtkutil.so|libshim_drm.so \
-    /system/vendor/lib64/libdrmmtkutil.so|libshim_drm.so
+    /system/vendor/lib64/libdrmmtkutil.so|libshim_drm.so \
+    /system/vendor/lib/libwvm.so|libshim_wvm.so
