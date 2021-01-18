@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The CyanogenMod Project
+ * Copyright (C) 2020 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,31 +14,38 @@
  * limitations under the License.
  */
 
-#include <android/log.h>
-#include <media/IMediaSource.h>
 #include <stdlib.h>
+#include <stdint.h>
+#include <media/IMediaSource.h>
+#include <cutils/log.h>
+#include <string.h>
+#include <media/stagefright/MediaBufferGroup.h>
+#include <media/stagefright/MediaSource.h>
 
-/* MediaBufferGroup::MediaBufferGroup */
-extern "C" int _ZN7android16MediaBufferGroupC1Ej(size_t);
-extern "C" int _ZN7android16MediaBufferGroupC1Ev() {
-    return _ZN7android16MediaBufferGroupC1Ej(0);
+extern android::MediaBufferGroup*   _ZN7android16MediaBufferGroupC1Ev() {
+#ifdef AOSP
+    return new android::MediaBufferGroup();
+#else
+    return new android::MediaBufferGroup(0);
+#endif
 }
 
-/* MediaBufferGroup::acquire_buffer */
-extern "C" android::status_t _ZN7android16MediaBufferGroup14acquire_bufferEPPNS_11MediaBufferEbj(android::MediaBuffer**, bool, size_t);
-extern "C" android::status_t _ZN7android16MediaBufferGroup14acquire_bufferEPPNS_11MediaBufferEb(android::MediaBuffer **out, bool nonBlocking) {
-    __android_log_print(ANDROID_LOG_ERROR, "MEDIABUFFER RANGE_LENGTH: ", "%d", (**out).range_length()); 
-    return _ZN7android16MediaBufferGroup14acquire_bufferEPPNS_11MediaBufferEbj(out, nonBlocking, (**out).range_length());
+extern int _ZN7android16MediaBufferGroup14acquire_bufferEPPNS_11MediaBufferEb(void *obj,android::MediaBuffer **out, 
+            bool nonBlocking, size_t requestedSize) {
+    android::MediaBufferGroup *mbg = static_cast<android::MediaBufferGroup *>(obj);
+    return mbg->acquire_buffer(out,nonBlocking,requestedSize);
+
 }
 
-/* IMediaSource::ReadOptions::getSeekTo */
-extern "C" bool _ZNK7android12IMediaSource11ReadOptions9getSeekToEPxPNS1_8SeekModeE(int64_t*, android::IMediaSource::ReadOptions::SeekMode*);
-extern "C" bool _ZNK7android11MediaSource11ReadOptions9getSeekToEPxPNS1_8SeekModeE(int64_t *time_us, android::IMediaSource::ReadOptions::SeekMode *mode) {
-    return _ZNK7android12IMediaSource11ReadOptions9getSeekToEPxPNS1_8SeekModeE(time_us, mode);
-}
+extern "C" {
+    void _ZNK7android12IMediaSource11ReadOptions9getSeekToEPxPNS1_8SeekModeE(int64_t*, int32_t*) {}
+    bool _ZNK7android12IMediaSource11ReadOptions14getNonBlockingEv();
 
-/* IMediaSource::ReadOptions::getNonBlocking */
-extern "C" bool _ZNK7android12IMediaSource11ReadOptions14getNonBlockingEv();
-extern "C" bool _ZNK7android11MediaSource11ReadOptions14getNonBlockingEv() {
-    return _ZNK7android12IMediaSource11ReadOptions14getNonBlockingEv();
+    void _ZNK7android11MediaSource11ReadOptions9getSeekToEPxPNS1_8SeekModeE(int64_t *time_us, int32_t *mode) {
+	    _ZNK7android12IMediaSource11ReadOptions9getSeekToEPxPNS1_8SeekModeE(time_us, mode);
+    }
+
+    bool _ZNK7android11MediaSource11ReadOptions14getNonBlockingEv() {
+        return _ZNK7android12IMediaSource11ReadOptions14getNonBlockingEv();
+    }
 }
