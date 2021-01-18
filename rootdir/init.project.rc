@@ -1,5 +1,4 @@
 import init.suez.usb.rc
-import init.rc.ufsd
 
 on boot
     # Adjust minimum free memory space (default is 2.5M)

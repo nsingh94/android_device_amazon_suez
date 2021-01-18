@@ -292,54 +292,23 @@ on property:ro.board.platform=mt8173
     write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1300000
 
 on property:vold.decrypt=trigger_reset_main
-    start stop_modem
     write /proc/bootprof "trigger_reset_main"
 
 on property:vold.decrypt=trigger_restart_min_framework
-    start start_modem
     start msensord
-    start permission_check
     write /proc/bootprof "trigger_restart_min_framework"
 
 on property:vold.decrypt=trigger_restart_framework
     start nvram_daemon
-    start start_modem
     start msensord
-    start permission_check
     write /proc/bootprof "trigger_restart_framework"
 
 on property:vold.decrypt=trigger_shutdown_framework
-    start stop_modem
-    start swapoff_action
     write /proc/bootprof "trigger_shutdown_framework"
 
 service kisd /vendor/bin/kisd
 	user root
 	group system drmrpc
-
-service stop_modem /vendor/bin/md_ctrl 0
-    class main
-    disabled
-    oneshot
-
-service start_modem /vendor/bin/md_ctrl 1
-    class main
-    disabled
-    oneshot
-# Define TCP buffer sizes for various networks
-#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
-    exec /system/bin/setprop net.tcp.buffersize.default 4096,87380,524288,4096,16384,524288
-    exec /system/bin/setprop net.tcp.buffersize.wifi    524288,1048576,2097152,262144,524288,1048576
-    exec /system/bin/setprop net.tcp.buffersize.lte     524288,1048576,2097152,262144,524288,1048576
-    exec /system/bin/setprop net.tcp.buffersize.umts    4094,87380,524288,4096,16384,524288
-    exec /system/bin/setprop net.tcp.buffersize.hspa    4094,87380,524288,4096,16384,524288
-    exec /system/bin/setprop net.tcp.buffersize.hsupa   4094,87380,524288,4096,16384,524288
-    exec /system/bin/setprop net.tcp.buffersize.hsdpa   4094,87380,524288,4096,16384,524288
-    exec /system/bin/setprop net.tcp.buffersize.hspap   4094,87380,1220608,4096,16384,1220608
-    exec /system/bin/setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
-    exec /system/bin/setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
-
-    exec /system/bin/setprop persist.sys.strictmode.disable 1
 
 ## mtk printk uart controller
 on property:persist.uartconsole.enable=1
@@ -357,48 +326,6 @@ service nvram_daemon /vendor/bin/nvram_daemon
     class main
     user root
     group system
-    oneshot
-
-service atci_service /vendor/bin/atci_service
-    class core
-    socket atci-service stream 660 radio system
-    socket atci-serv-fw stream 660 radio system
-    user root
-    disabled
-    group radio system
-
-service atcid-daemon-u /vendor/bin/atcid
-    class main
-    socket adb_atci_socket stream 660 radio system
-    user system
-    group radio system media
-    disabled
-    oneshot
-
-service atcid-daemon-e /vendor/bin/atcid
-    class core
-    socket adb_atci_socket stream 660 radio system
-    user root
-    group radio system
-    disabled
-    oneshot
-
-on property:persist.service.atci.usermode=1
-    exec /system/bin/setprop persist.sys.usb.config mass_storage,adb,acm
-
-on property:ro.build.type=eng
-start atci_service
-start atcid-daemon-e
-
-on property:persist.service.atci.autostart=1
-start atci_service
-start atcid-daemon-u
-
-service audio-daemon /vendor/bin/audiocmdservice_atci
-    class main
-    socket atci-audio stream 660 root system
-    user root
-    disabled
     oneshot
 
 service pq /vendor/bin/pq
@@ -442,49 +369,49 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     oneshot
 
 
-service dhcpcd_bt-pan /vendor/bin/dhcpcd -BK -dd
+service dhcpcd_bt-pan /system/bin/dhcpcd -BK -dd
     class main
     user root
     group net_admin net_raw
     disabled
     oneshot
 
-service dhcpcd_wlan0 /vendor/bin/dhcpcd -ABK -dd
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABK -dd
     class main
     user root
     group net_admin net_raw
     disabled
     oneshot
 
-service dhcpcd_p2p /vendor/bin/dhcpcd -BK -dd -A
+service dhcpcd_p2p /system/bin/dhcpcd -BK -dd -A
     class main
     user root
     group net_admin net_raw
     disabled
     oneshot
 
-service iprenew_wlan0 /vendor/bin/dhcpcd -n
+service iprenew_wlan0 /system/bin/dhcpcd -n
     class main
     user dhcp
     group net_admin net_raw
     disabled
     oneshot
 
-service iprenew_p2p /vendor/bin/dhcpcd -n
+service iprenew_p2p /system/bin/dhcpcd -n
     class main
     user dhcp
     group net_admin net_raw
     disabled
     oneshot
 
-service dhcp_inform /vendor/bin/dhcpcd -s -BK -A
+service dhcp_inform /system/bin/dhcpcd -s -BK -A
     class main
     user root
     group system radio dhcp net_admin net_raw
     disabled
     oneshot
 
-service dhcpcd_eth0 /vendor/bin/dhcpcd -ABKL
+service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
     disabled
     oneshot
 
@@ -495,66 +422,6 @@ service dhcpcd_eth0 /vendor/bin/dhcpcd -ABKL
 service msensord /vendor/bin/msensord
     class main
     oneshot
-
-service s62xd /vendor/bin/s62xd
-    disabled
-    user compass
-    group system
-    class main
-
-service ami304d /vendor/bin/ami304d
-    user system
-    group system
-    disabled
-    class main
-
-service memsicd /vendor/bin/memsicd
-     disabled
-    user system
-    group system
-    class main
-
-service memsicd3416x /vendor/bin/memsicd3416x
-     disabled
-	 user system
-    group system
-    class main
-
-service akmd8975 /vendor/bin/akmd8975
-    disabled
-    user system
-    group system
-    class main
-
-service akmd8963 /vendor/bin/akmd8963
-    disabled
-    user system
-    group system
-    class main
-
-service akmd09911 /vendor/bin/akmd09911
-    disabled
-    user system
-    group system
-    class main
-
-service bmm050d /vendor/bin/bmm050d
-    disabled
-    user system
-    group system
-    class main
-
-service mc6420d /vendor/bin/mc6420d
-    disabled
-    user system
-    group system
-    class main
-
-service AcdApiDaemon /vendor/bin/AcdApiDaemon
-    disabled
-    user system
-    group system
-    class main
 
 #
 #sensor service (end)
