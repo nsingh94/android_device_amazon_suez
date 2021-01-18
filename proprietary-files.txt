@@ -188,7 +188,6 @@ lib/libvp8enc_sa.ca7.so
 lib/libvp9dec_sa.ca7.so
 lib/libwebrtc_audio_preprocessing.so
 lib/libwifitest.so
-lib/libwpa_client.so
 lib/lib_uree_mtk_crypto.so
 lib/lib_uree_mtk_modular_drm.so
 lib/modules/ufsd.ko
@@ -302,7 +301,6 @@ lib64/liburee_meta_drmkeyinstall_v2.so
 lib64/libvcodec_utility.so
 lib64/libwebrtc_audio_preprocessing.so
 lib64/libwifitest.so
-lib64/libwpa_client.so
 lib64/lib_uree_mtk_crypto.so
 lib64/lib_uree_mtk_modular_drm.so
 lib64/soundfx/libaudiofx.so
