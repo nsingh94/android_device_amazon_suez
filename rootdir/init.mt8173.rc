@@ -1,4 +1,4 @@
-import init.project.rc
+import init.suez.usb.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
@@ -82,6 +82,12 @@ on post-fs-data
     # dhcpv6 server
     mkdir /data/misc/wide-dhcpv6 0770 dhcp wifi
     chown dhcp wifi /data/misc/wide-dhcpv6
+
+    # WiFi
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/wpa_supplicant 0770 wifi wifi
+    chown wifi wifi /data/misc/wifi
 
     # change key_provisioning
     mkdir /data/key_provisioning
@@ -216,8 +222,14 @@ on post-fs-data
     # RPMB service
     start rpmb_svc
 
+    start amzn_drmprov
+    start amzn_dha_hmac
+
 on boot
+    # Adjust minimum free memory space (default is 2.5M)
+    write /proc/sys/vm/min_free_kbytes 32768
     write /proc/sys/vm/dirty_writeback_centisecs 300
+
     chmod 0660 /sys/power/autosleep
 
     chown system system /sys/devices/system/cpu/cpufreq/hotplug/cpu_num_base	
@@ -306,6 +318,55 @@ on property:vold.decrypt=trigger_restart_framework
 on property:vold.decrypt=trigger_shutdown_framework
     write /proc/bootprof "trigger_shutdown_framework"
 
+on property:sys.hwc.video_mode=1
+    write /sys/devices/soc/soc:MTKFB@bf200000/backlight_mode mov
+
+on property:sys.hwc.video_mode=0
+    write /sys/devices/soc/soc:MTKFB@bf200000/backlight_mode off
+
+on property:sys.battery_charging_cv_level=1
+    write /sys/devices/mediatek,battery_common/Custom_Charging_Mode 1
+
+on property:sys.battery_charging_cv_level=0
+    write /sys/devices/mediatek,battery_common/Custom_Charging_Mode 0
+
+on property:sys.touch_gesture_wakeup=1
+    write /sys/bus/i2c/devices/7-0038/ftsgesturewakeup 1
+
+on property:sys.touch_gesture_wakeup=0
+    write /sys/bus/i2c/devices/7-0038/ftsgesturewakeup 0
+
+service amzn_drmprov /vendor/bin/amzn_drmprov_check
+	class main
+	user root
+	group system
+	oneshot
+	disabled
+
+service amzn_dha_hmac /vendor/bin/amzn_dha_hmac
+	class main
+	user root
+	group system
+	oneshot
+	disabled
+
+service wmtLoader /vendor/bin/wmt_loader
+    user root
+    group root
+    class core
+    oneshot
+
+service 66xx_launcher /vendor/bin/6620_launcher -m 4 -p /system/etc/firmware/
+    user system
+    group system
+    class core
+
+#monitor battery status
+service bat_logging /vendor/bin/battery_lifetime_data
+    class main
+    user root
+    group root
+
 service kisd /vendor/bin/kisd
 	user root
 	group system drmrpc
@@ -368,7 +429,6 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
-
 service dhcpcd_bt-pan /system/bin/dhcpcd -BK -dd
     class main
     user root
@@ -415,17 +475,9 @@ service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
     disabled
     oneshot
 
-#
-#sensor service (begin)
-#
-
 service msensord /vendor/bin/msensord
     class main
     oneshot
-
-#
-#sensor service (end)
-#
 
 service thermal_manager /vendor/bin/thermal_manager
     class main
@@ -449,3 +501,5 @@ service rpmb_svc /vendor/bin/rpmb_svc
     class main
     group system drmrpc
     disabled
+
+
