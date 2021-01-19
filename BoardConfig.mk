@@ -73,7 +73,7 @@ WIFI_DRIVER_STATE_OFF := 0
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_MTK := true
 BOARD_BLUETOOTH_DOES_NOT_USE_RFKILL := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/amazon/suez/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/amazon/suez/configs/bluetooth
 
 # Graphics
 BOARD_EGL_CFG := device/amazon/suez/configs/graphics/egl.cfg
