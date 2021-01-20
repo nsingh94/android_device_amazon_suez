@@ -105,11 +105,15 @@ BLOCK_BASED_OTA := true
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/mt_usb/musb-hdrc.0.auto/gadget/lun%d/file
 
+# Screen
+TARGET_SCREEN_WIDTH := 1200
+TARGET_SCREEN_HEIGHT := 1920
+DEVICE_RESOLUTION := 1200x1920
+
 # TWRP
 ifneq (,$(strip $(wildcard bootable/recovery-twrp/twrp.cpp)))
 #RECOVERY_VARIANT := twrp
 endif
-DEVICE_RESOLUTION := 1200x1920
 TW_EXCLUDE_MTP := false
 RECOVERY_SDCARD_ON_DATA := true
 TW_BRIGHTNESS_PATH := /sys/devices/platform/leds-mt65xx/leds/lcd-backlight/brightness

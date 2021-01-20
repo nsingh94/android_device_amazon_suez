@@ -8,9 +8,6 @@ PRODUCT_AAPT_CONFIG := xlarge
 PRODUCT_AAPT_PREBUILT_DPI := hdpi xhdpi mdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 
-TARGET_SCREEN_WIDTH := 1200
-TARGET_SCREEN_HEIGHT := 1920
-
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
