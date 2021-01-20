@@ -75,6 +75,9 @@ BOARD_HAVE_BLUETOOTH_MTK := true
 BOARD_BLUETOOTH_DOES_NOT_USE_RFKILL := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/amazon/suez/configs/bluetooth
 
+# DRM
+BOARD_WIDEVINE_OEMCRYPTO_LEVEL := 1
+
 # Graphics
 BOARD_EGL_CFG := device/amazon/suez/configs/graphics/egl.cfg
 USE_OPENGL_RENDERER := true
