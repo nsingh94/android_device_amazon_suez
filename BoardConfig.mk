@@ -110,24 +110,6 @@ TARGET_SCREEN_WIDTH := 1200
 TARGET_SCREEN_HEIGHT := 1920
 DEVICE_RESOLUTION := 1200x1920
 
-# TWRP
-ifneq (,$(strip $(wildcard bootable/recovery-twrp/twrp.cpp)))
-#RECOVERY_VARIANT := twrp
-endif
-TW_EXCLUDE_MTP := false
-RECOVERY_SDCARD_ON_DATA := true
-TW_BRIGHTNESS_PATH := /sys/devices/platform/leds-mt65xx/leds/lcd-backlight/brightness
-TARGET_RECOVERY_LCD_BACKLIGHT_PATH := /sys/devices/platform/leds-mt65xx/leds/lcd-backlight/brightness
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
-RECOVERY_FSTAB_VERSION := 2
-TW_THEME := landscape_mdpi
-#TWRP_EVENT_LOGGING := true
-RECOVERY_TOUCHSCREEN_SWAP_XY := true
-#RECOVERY_GRAPHICS_USE_LINELENGTH := true
-#RECOVERY_TOUCHSCREEN_FLIP_Y := true 
-RECOVERY_TOUCHSCREEN_FLIP_X := true
-BOARD_HAS_FLIPPED_SCREEN := true
-
 # Disable API check
 WITHOUT_CHECK_API := true
 
