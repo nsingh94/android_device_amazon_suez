@@ -105,7 +105,8 @@ PRODUCT_PACKAGES += \
 
 # Graphics
 PRODUCT_PACKAGES += \
-    libion
+    libion \
+    libdrm
 
 # Graphics (MTK)
 PRODUCT_PACKAGES += \
