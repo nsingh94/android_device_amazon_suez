@@ -1,14 +1,60 @@
-#<src>                                            <mnt_point>     <type>    <mnt_flags and options>                 <fs_mgr_flags>
-/dev/block/platform/mtk-msdc.0/by-name/system     /system         ext4      ro						                 wait,check
-/dev/block/platform/mtk-msdc.0/by-name/userdata   /data           ext4      noatime,nosuid,nodev,noauto_da_alloc     wait,check,resize,encryptable=/dev/block/platform/mtk-msdc.0/by-name/metadata
-/dev/block/platform/mtk-msdc.0/by-name/cache      /cache          ext4      noatime,nosuid,nodev,noauto_da_alloc     wait,check
-/dev/block/platform/mtk-msdc.0/by-name/proinfo    /proinfo        emmc      defaults defaults
-/dev/block/platform/mtk-msdc.0/by-name/lk         /bootloader     emmc      defaults defaults
-/dev/block/platform/mtk-msdc.0/by-name/lk2        /bootloader2    emmc      defaults defaults
-/dev/block/platform/mtk-msdc.0/by-name/boot       /boot           emmc      defaults defaults
-/dev/block/platform/mtk-msdc.0/by-name/recovery   /recovery       emmc      defaults defaults
-/dev/block/platform/mtk-msdc.0/by-name/tee1       /tee1           emmc      defaults defaults
-/dev/block/platform/mtk-msdc.0/by-name/tee2       /tee2           emmc      defaults defaults
+#<src>                                                           <mnt_point>     <type>    <mnt_flags and options>                 <fs_mgr_flags>
+/dev/block/platform/mtk-msdc.0/11230000.MSDC0/by-name/system     /system         ext4      ro						                wait,check
+/dev/block/platform/mtk-msdc.0/11230000.MSDC0/by-name/userdata   /data           ext4      noatime,nosuid,nodev,noauto_da_alloc     wait,check,resize,encryptable=/dev/block/platform/mtk-msdc.0/11230000.MSDC0/by-name/metadata
+/dev/block/platform/mtk-msdc.0/11230000.MSDC0/by-name/cache      /cache          ext4      noatime,nosuid,nodev,noauto_da_alloc     wait,check
+/dev/block/platform/mtk-msdc.0/11230000.MSDC0/by-name/proinfo    /proinfo        emmc      defaults defaults
+/dev/block/platform/mtk-msdc.0/11230000.MSDC0/by-name/lk         /bootloader     emmc      defaults defaults
+/dev/block/platform/mtk-msdc.0/11230000.MSDC0/by-name/lk2        /bootloader2    emmc      defaults defaults
+/dev/block/platform/mtk-msdc.0/11230000.MSDC0/by-name/boot       /boot           emmc      defaults defaults
+/dev/block/platform/mtk-msdc.0/11230000.MSDC0/by-name/recovery   /recovery       emmc      defaults defaults
+/dev/block/platform/mtk-msdc.0/11230000.MSDC0/by-name/tee1       /tee1           emmc      defaults defaults
+/dev/block/platform/mtk-msdc.0/11230000.MSDC0/by-name/tee2       /tee2           emmc      defaults defaults
 
 /devices/soc/11240000.mmc*  auto      auto      defaults        voldmanaged=sdcard1:auto,encryptable=userdata
 /devices/soc/11270000.usb*  auto      auto      defaults        voldmanaged=usbotg:auto
+
+#
+#boot       -> /dev/block/mmcblk0p16
+#boot0hdr0  -> /dev/block/mmcblk0boot0p1
+#boot0hdr1  -> /dev/block/mmcblk0boot0p2
+#boot0img0  -> /dev/block/mmcblk0boot0p3
+#boot0img1  -> /dev/block/mmcblk0boot0p4
+#boot_x     -> /dev/block/mmcblk0p11
+#cache      -> /dev/block/mmcblk0p14
+#dkb        -> /dev/block/mmcblk0p4
+#kb         -> /dev/block/mmcblk0p3
+#lk         -> /dev/block/mmcblk0p5
+#metadata   -> /dev/block/mmcblk0p8
+#MISC       -> /dev/block/mmcblk0p9
+#PMT        -> /dev/block/mmcblk0p2
+#proinfo    -> /dev/block/mmcblk0p1
+#recovery   -> /dev/block/mmcblk0p17
+#recovery_x -> /dev/block/mmcblk0p12
+#reserved   -> /dev/block/mmcblk0p10
+#system     -> /dev/block/mmcblk0p13
+#tee1       -> /dev/block/mmcblk0p6
+#tee2       -> /dev/block/mmcblk0p7
+#userdata   -> /dev/block/mmcblk0p15
+
+
+#/dev/block/mmcblk0boot0p1  -> boot0hdr0
+#/dev/block/mmcblk0boot0p2  -> boot0hdr1
+#/dev/block/mmcblk0boot0p3  -> boot0img0
+#/dev/block/mmcblk0boot0p4  -> boot0img1
+#/dev/block/mmcblk0p1  -> proinfo
+#/dev/block/mmcblk0p2  -> PMT
+#/dev/block/mmcblk0p3  -> kb
+#/dev/block/mmcblk0p4  -> dkb
+#/dev/block/mmcblk0p5  -> lk
+#/dev/block/mmcblk0p6  -> tee1
+#/dev/block/mmcblk0p7  -> tee2
+#/dev/block/mmcblk0p8  -> metadata
+#/dev/block/mmcblk0p9  -> MISC
+#/dev/block/mmcblk0p10 -> reserved
+#/dev/block/mmcblk0p11 -> boot_x 
+#/dev/block/mmcblk0p12 -> recovery_x
+#/dev/block/mmcblk0p13 -> system
+#/dev/block/mmcblk0p14 -> cache
+#/dev/block/mmcblk0p15 -> userdata
+#/dev/block/mmcblk0p16 -> boot
+#/dev/block/mmcblk0p17 -> recovery
