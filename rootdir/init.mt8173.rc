@@ -5,12 +5,15 @@ on early-init
     chmod 0755 /sys/kernel/debug
 
 on init
-# change lk_env permission
+    # change lk_env permission
     chown root system /proc/lk_env
     chmod 0660 /proc/lk_env
 
     # enable armv8_deprecated instruction hooks
     write /proc/sys/abi/swp 1
+
+    # Create nvdata mount point
+    mkdir /nvdata 0771 system system
 
 on charger
     start charger
@@ -25,33 +28,39 @@ on fs
     write /proc/bootprof "INIT:Mount_START"
     symlink /dev/block/platform/soc/11230000.mmc /dev/block/platform/mtk-msdc.0
 
+    # Temp Backward compatibility
+    symlink /dev/block/platform/mtk-msdc.0/by-name/boot_x /dev/bootimg
+    symlink /dev/block/platform/mtk-msdc.0/by-name/recovery_x /dev/recovery
+    symlink /dev/block/platform/mtk-msdc.0/by-name/kb /dev/kb
+    symlink /dev/block/platform/mtk-msdc.0/by-name/dkb /dev/dkb
+    symlink /dev/block/platform/mtk-msdc.0/by-name/proinfo /dev/pro_info
+    symlink /dev/block/platform/mtk-msdc.0/by-name/nvram /dev/nvram
+
     exec /sbin/resize_ext4 /dev/block/platform/mtk-msdc.0/by-name/userdata footer
 
     mount_all /fstab.mt8173
 
     exec /system/bin/tune2fs -O has_journal -u 10010 -r 4096 /dev/block/platform/mtk-msdc.0/by-name/userdata
 
-    exec /system/bin/chown root:system /dev/block/platform/mtk-msdc.0/by-name/frp
-    exec /system/bin/chmod 0660 /dev/block/platform/mtk-msdc.0/by-name/frp
     write /proc/bootprof "INIT:Mount_END"
 
 on post-fs
-    #change permissions for mediaserver
+    # change permissions for mediaserver
     chown root media /proc/clkmgr/mipi_test
 
-    #change permission for engineer mode
+    # change permission for engineer mode
     chown radio system /proc/clkmgr/pll_test
     chown radio system /proc/clkmgr/pll_fsel
     chmod 0664 /proc/clkmgr/pll_test
     chmod 0664 /proc/clkmgr/pll_fsel
-    #change permission for engineer mode
+    # change permission for engineer mode
     chown radio system /proc/freqhopping/dramc
     chown radio system /proc/freqhopping/dumpregs
     chown radio system /proc/freqhopping/freqhopping_debug
     chown radio system /proc/freqhopping/status
     chown radio system /proc/freqhopping/userdef
 
-# change owner
+    # change owner
     chown system system /proc/bootprof
     chown root system /proc/mtprof/cputime
     chown root system /proc/mtprof/reboot_pid
@@ -61,9 +70,15 @@ on post-fs
 
 on post-fs-data
     # create basic filesystem structure
-    mkdir /data/nvram 2771 root system
-    mkdir /data/nvram/media 0770 media audio
+    # We chown/chmod /nvdata again so because mount is run as root + defaults
+    chown root system /nvdata
+    chmod 0771 /nvdata
+    symlink /nvdata /data/nvram
+    mkdir /nvdata/media 0771 media audio
     chmod 0660 /data/misc/wifi/p2p_supplicant.conf
+
+    # Set SELinux security contexts on upgrade or policy update.
+    restorecon_recursive /nvdata
 
     #give system access to rfkill device node
     chmod 0660 /dev/rfkill
@@ -213,11 +228,13 @@ on post-fs-data
     mkdir /data/app/mcRegistry 0775 system system	
     mkdir /data/app/mcRegistry/TbStorage 0775 system system
 
-#Thermal
+    # Thermal
     mkdir /data/.tp/ 0775 system system
 
 # End of adding by MTK drivers
 # -----------------------
+
+    setprop vold.post_fs_data_done 1
 
     # RPMB service
     start rpmb_svc
@@ -244,7 +261,7 @@ on boot
     chown system /sys/module/mlog/parameters/do_mlog
     chown system /sys/module/mlog/parameters/timer_intval
 
-# HMP CPU hotplug strategy
+    # HMP CPU hotplug strategy
     chown system system /proc/hps/num_base_perf_serv
     chmod 0660 /proc/hps/num_base_perf_serv
     chown system system /proc/hps/num_limit_power_serv
@@ -256,14 +273,14 @@ on boot
     chown system system /proc/hps/up_threshold
     chmod 0660 /proc/hps/up_threshold
 
-# CPU freq
+    # CPU freq
     chown system system /proc/cpufreq/cpufreq_limited_by_hevc
     chmod 0660 /proc/cpufreq/cpufreq_limited_by_hevc
     chown system system /proc/cpufreq/cpufreq_limited_max_freq_by_user
     chmod 0660 /proc/cpufreq/cpufreq_limited_max_freq_by_user
     
-##Netlog tool
-   #change permissions about terminal
+    # Netlog tool
+    # change permissions about terminal
     chown root radio /proc/net/vlan/config
     chmod 0640 /proc/net/vlan/config
     chown root radio /proc/net/ip6_tables_matches
@@ -282,11 +299,11 @@ on boot
     chown root radio /proc/net/netfilter/nfnetlink_log
     chown root radio /proc/net/netfilter/nfnetlink_queue
 
-# WMT proc
+    # WMT proc
     chown shell system /proc/driver/wmt_dbg
     chown shell system /proc/driver/wmt_aee
 
-#Define device for ATCID
+    # Define device for ATCID
     chmod 660 /dev/ttyGS0
     chown system /dev/ttyGS0
     chmod 660 /dev/ttyGS1
