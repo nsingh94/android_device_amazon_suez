@@ -55,7 +55,7 @@
 #define LOG_TAG "lights"
 
 
-#include <cutils/log.h>
+#include <log/log.h>
 
 #include <stdint.h>
 #include <string.h>
@@ -139,25 +139,25 @@ char const*const BUTTON_FILE
         = "/sys/class/leds/button-backlight/brightness";
 
 //ALPS0804285 add for delay
-int led_wait_delay(int ms) 
+int led_wait_delay(unsigned int ms)
 {
-	struct timespec req = {.tv_sec = 0, .tv_nsec = ms*1000000};
-	struct timespec rem;
-	int ret = nanosleep(&req, &rem);
-
-	while(ret)
-	{
-		if(errno == EINTR)
-		{
-			req.tv_sec  = rem.tv_sec;
-			req.tv_nsec = rem.tv_nsec;
-			ret = nanosleep(&req, &rem);
-		}
-		else
-		{
-			perror("nanosleep");
-			return errno;
-		}
+	struct timeval begin, curr;
+	long long time_diff = 0;
+	gettimeofday(&begin, NULL);
+	while ((unsigned int)time_diff < ms) {
+		gettimeofday(&curr, NULL);
+		time_diff = (curr.tv_sec*1000LL + curr.tv_usec/1000) - (begin.tv_sec*1000LL + begin.tv_usec/1000);
+					
+   
+							
+							 
+							   
+   
+	  
+   
+					   
+				
+   
 	}
 	return 0;
 }
@@ -358,7 +358,7 @@ blink_blue(int level, int onMS, int offMS)
 }
 
 static int
-handle_trackball_light_locked(struct light_device_t* dev)
+handle_trackball_light_locked(__attribute__((__unused__)) struct light_device_t* dev)
 {
     int mode = g_attention;
 
@@ -402,7 +402,7 @@ set_light_backlight(struct light_device_t* dev,
 }
 
 static int
-set_light_keyboard(struct light_device_t* dev,
+set_light_keyboard(__attribute__((__unused__)) struct light_device_t* dev,
         struct light_state_t const* state)
 {
     int err = 0;
@@ -414,7 +414,7 @@ set_light_keyboard(struct light_device_t* dev,
 }
 
 static int
-set_light_buttons(struct light_device_t* dev,
+set_light_buttons(__attribute__((__unused__)) struct light_device_t* dev,
         struct light_state_t const* state)
 {
     int err = 0;
@@ -427,7 +427,7 @@ set_light_buttons(struct light_device_t* dev,
 }
 
 static int
-set_speaker_light_locked(struct light_device_t* dev,
+set_speaker_light_locked(__attribute__((__unused__)) struct light_device_t* dev,
         struct light_state_t const* state)
 {
     int len;
