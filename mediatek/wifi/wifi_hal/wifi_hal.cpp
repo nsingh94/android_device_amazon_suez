@@ -177,6 +177,9 @@ wifi_error init_wifi_vendor_hal_func_table(wifi_hal_fn *fn)
     fn->wifi_get_wake_reason_stats = wifi_get_wake_reason_stats_dummy;
     fn->wifi_get_packet_filter_capabilities = wifi_get_packet_filter_capabilities_dummy;
 
+    fn->wifi_get_roaming_capabilities = wifi_get_roaming_capabilities;
+    fn->wifi_configure_roaming = wifi_configure_roaming;
+    fn->wifi_enable_firmware_roaming = wifi_enable_firmware_roaming;
     return WIFI_SUCCESS;
 }
 
@@ -775,6 +778,114 @@ public:
     }
 };
 
+class ConfigRoamingCommand : public WifiCommand
+{
+private:
+    wifi_roaming_config *mConfig;
+
+public:
+    ConfigRoamingCommand(wifi_interface_handle handle, wifi_roaming_config *config)
+        : WifiCommand("ConfigRoamingCommand", handle, 0)
+    {
+        mConfig = config;
+    }
+
+    int createRequest(WifiRequest& request, int subcmd, wifi_roaming_config *config) {
+        int result = request.create(GOOGLE_OUI, subcmd);
+        if (result < 0) {
+            return result;
+        }
+
+        nlattr *data = request.attr_start(NL80211_ATTR_VENDOR_DATA);
+        result = request.put_u32(WIFI_ATTRIBUTE_ROAMING_BLACKLIST_NUM, config->num_blacklist_bssid);
+        if (result < 0) {
+            return result;
+        }
+
+        mac_addr *bssid_list = config->blacklist_bssid;
+        for (u32 i = 0; i < config->num_blacklist_bssid; i++) {
+            result = request.put_addr(WIFI_ATTRIBUTE_ROAMING_BLACKLIST_BSSID, bssid_list[i]);
+            ALOGI("Blacklist BSSID[%d] " MACSTR, i, MAC2STR(bssid_list[i]));
+            if (result < 0) {
+                return result;
+            }
+        }
+
+        result = request.put_u32(WIFI_ATTRIBUTE_ROAMING_WHITELIST_NUM, config->num_whitelist_ssid);
+        if (result < 0) {
+            return result;
+        }
+
+        char ssid[MAX_SSID_LENGTH + 1];
+        ssid_t *ssid_list = config->whitelist_ssid;
+        for (u32 i = 0; i < config->num_whitelist_ssid; i++) {
+            memcpy(ssid, ssid_list[i].ssid_str, ssid_list[i].length);
+            ssid[ssid_list[i].length] = '\0';
+            result = request.put(
+                WIFI_ATTRIBUTE_ROAMING_WHITELIST_SSID, ssid, ssid_list[i].length + 1);
+            ALOGI("Whitelist ssid[%d] : %s", i, ssid);
+            if (result < 0) {
+                return result;
+            }
+        }
+
+        request.attr_end(data);
+        return WIFI_SUCCESS;
+    }
+
+    int start() {
+        ALOGD("[WIFI HAL] Configure roaming");
+        WifiRequest request(familyId(), ifaceId());
+        int result = createRequest(request, WIFI_SUBCMD_CONFIG_ROAMING, mConfig);
+        if (result != WIFI_SUCCESS) {
+            ALOGE("Failed to create request, result=%d", result);
+            return result;
+        }
+
+        result = requestResponse(request);
+        if (result != WIFI_SUCCESS) {
+            ALOGE("[WIFI HAL]Failed to configure roaming, result=%d", result);
+        }
+
+        return result;
+    }
+
+protected:
+    virtual int handleResponse(WifiEvent& reply) {
+         ALOGD("ConfigRoamingCommand complete!");
+        /* Nothing to do on response! */
+        return NL_SKIP;
+    }
+};
+
+class EnableRoamingCommand : public WifiCommand {
+private:
+    fw_roaming_state_t mState;
+public:
+    EnableRoamingCommand(wifi_interface_handle handle, fw_roaming_state_t state)
+        : WifiCommand("EnableRoamingCommand", handle, 0) {
+            mState = state;
+        }
+    virtual int create() {
+        int ret;
+
+        ret = mMsg.create(GOOGLE_OUI, WIFI_SUBCMD_ENABLE_ROAMING);
+        if (ret < 0) {
+             ALOGE("Can't create message to send to driver - %d", ret);
+             return ret;
+        }
+
+        nlattr *data = mMsg.attr_start(NL80211_ATTR_VENDOR_DATA);
+        ret = mMsg.put_u32(WIFI_ATTRIBUTE_ROAMING_STATE, mState);
+        if (ret < 0) {
+            return ret;
+        }
+
+        mMsg.attr_end(data);
+        return WIFI_SUCCESS;
+    }
+};
+
 class GetFeatureSetCommand : public WifiCommand
 {
 private:
@@ -803,6 +914,8 @@ public:
             ret = mMsg.create(GOOGLE_OUI, WIFI_SUBCMD_GET_FEATURE_SET);
         } else if (feature_type == WIFI_ATTRIBUTE_NUM_FEATURE_SET) {
             ret = mMsg.create(GOOGLE_OUI, WIFI_SUBCMD_GET_FEATURE_SET_MATRIX);
+        } else if (feature_type == WIFI_ATTRIBUTE_ROAMING_CAPABILITIES) {
+            ret = mMsg.create(GOOGLE_OUI, WIFI_SUBCMD_GET_ROAMING_CAPABILITIES);
         } else {
             ALOGE("Unknown feature type %d", feature_type);
             return -1;
@@ -868,7 +981,25 @@ protected:
                             it.get_type(), it.get_len());
                 }
             }
-		}
+        } else if (feature_type == WIFI_ATTRIBUTE_ROAMING_CAPABILITIES){
+            if(!feature_matrix || !fm_size) {
+                ALOGE("feature_set pointer is not set");
+                return NL_SKIP;
+            }
+
+            *fm_size = set_size_max; // black and white
+            int i = 0;
+            u32 max[2] = {MAX_BLACKLIST_BSSID, MAX_WHITELIST_SSID};
+            for (nl_iterator it(vendor_data); it.has_next(); it.next()) {
+                if (it.get_type() == WIFI_ATTRIBUTE_ROAMING_CAPABILITIES && i < set_size_max) {
+                    feature_matrix[i] = it.get_u32() > max[i] ? max[i] : it.get_u32();
+                    i++;
+                } else {
+                    ALOGW("Ignore invalid attribute type = %d, idx = %d",
+                            it.get_type(), i);
+                }
+            }
+        }
 
         return NL_OK;
     }
@@ -1000,6 +1131,8 @@ wifi_error wifi_get_supported_feature_set(wifi_interface_handle handle, feature_
     set |= WIFI_FEATURE_PNO;
 #endif
 
+    set |= WIFI_FEATURE_CONTROL_ROAMING;
+
     memcpy(pset, &set, sizeof(feature_set));
 
     ALOGI("[WIFI HAL]wifi_get_supported_feature_set: handle=%p, feature_set=0x%x", handle, *pset);
@@ -1058,6 +1191,78 @@ static wifi_error wifi_stop_rssi_monitoring(wifi_request_id id, wifi_interface_h
         return WIFI_SUCCESS;
     }
     return wifi_cancel_cmd(id, iface);
+}
+
+wifi_error wifi_get_roaming_capabilities(wifi_interface_handle handle,
+                                            wifi_roaming_capabilities *caps) {
+    ALOGI("Get roaming capabilities");
+
+    wifi_handle wifiHandle = getWifiHandle(handle);
+    hal_info *info = getHalInfo(wifiHandle);
+
+    if (!caps) {
+        ALOGE("%s: Invalid Buffer provided. Exit", __FUNCTION__);
+        return WIFI_ERROR_INVALID_ARGS;
+    }
+
+    if (!info) {
+        ALOGE("%s: hal_info is NULL", __FUNCTION__);
+        return WIFI_ERROR_INVALID_ARGS;
+    }
+
+    // first time to get roaming cap
+    if (info->roaming_capa.max_blacklist_size == 0 && info->roaming_capa.max_whitelist_size == 0) {
+        int size = 0;
+        GetFeatureSetCommand command(handle, WIFI_ATTRIBUTE_ROAMING_CAPABILITIES, NULL,
+            (feature_set*) caps, &size, 2);
+        wifi_error ret = (wifi_error)command.requestResponse();
+        if (ret == WIFI_SUCCESS) {
+            info->roaming_capa.max_blacklist_size = caps->max_blacklist_size;
+            info->roaming_capa.max_whitelist_size = caps->max_whitelist_size;
+        }
+        return ret;
+    } else {
+        memcpy(caps, &info->roaming_capa, sizeof(wifi_roaming_capabilities));
+    }
+
+    return WIFI_SUCCESS;
+}
+
+wifi_error wifi_configure_roaming(wifi_interface_handle handle,
+                                     wifi_roaming_config *roaming_config) {
+    ALOGI("Configure roaming");
+    wifi_handle wifiHandle = getWifiHandle(handle);
+    hal_info *info = getHalInfo(wifiHandle);
+    if (!roaming_config) {
+        ALOGE("%s: Invalid Buffer provided. Exit", __FUNCTION__);
+        return WIFI_ERROR_INVALID_ARGS;
+    }
+
+    /* Set bssid blacklist */
+    if (roaming_config->num_blacklist_bssid > info->roaming_capa.max_blacklist_size) {
+        ALOGE("%s: Number of blacklist bssids(%d) provided is more than maximum blacklist bssids(%d)"
+              " supported", __FUNCTION__, roaming_config->num_blacklist_bssid,
+              info->roaming_capa.max_blacklist_size);
+        return WIFI_ERROR_NOT_SUPPORTED;
+    }
+
+    /* Set ssid whitelist */
+    if (roaming_config->num_whitelist_ssid > info->roaming_capa.max_whitelist_size) {
+        ALOGE("%s: Number of whitelist ssid(%d) provided is more than maximum whitelist ssids(%d) "
+              "supported", __FUNCTION__, roaming_config->num_whitelist_ssid,
+              info->roaming_capa.max_whitelist_size);
+        return WIFI_ERROR_NOT_SUPPORTED;
+    }
+
+    ConfigRoamingCommand command(handle, roaming_config);
+    return (wifi_error)command.start();
+}
+
+wifi_error wifi_enable_firmware_roaming(wifi_interface_handle handle,
+                              fw_roaming_state_t state) {
+    ALOGI("Enable roaming %d", state);
+    EnableRoamingCommand command(handle, state);
+    return (wifi_error) command.requestResponse();
 }
 
 /////////////////////////////////////////////////////////////////////////////

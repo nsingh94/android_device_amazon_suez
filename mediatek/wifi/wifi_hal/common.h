@@ -128,6 +128,13 @@ typedef enum {
     WIFI_ATTRIBUTE_MAX_RSSI,
     WIFI_ATTRIBUTE_MIN_RSSI,
     WIFI_ATTRIBUTE_RSSI_MONITOR_START,
+
+    WIFI_ATTRIBUTE_ROAMING_CAPABILITIES,
+    WIFI_ATTRIBUTE_ROAMING_BLACKLIST_NUM,
+    WIFI_ATTRIBUTE_ROAMING_BLACKLIST_BSSID,
+    WIFI_ATTRIBUTE_ROAMING_WHITELIST_NUM,
+    WIFI_ATTRIBUTE_ROAMING_WHITELIST_SSID,
+    WIFI_ATTRIBUTE_ROAMING_STATE,
 } WIFI_ATTRIBUTE;
 
 typedef enum {
@@ -191,6 +198,9 @@ typedef struct {
     interface_info **interfaces;                    // array of interfaces
     int num_interfaces;                             // number of interfaces
 
+
+    // add other details
+    wifi_roaming_capabilities roaming_capa;         // capabilities of roaming
 } hal_info;
 
 #define PNO_SSID_FOUND  0x1

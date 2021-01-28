@@ -104,6 +104,9 @@ typedef enum {
     GSCAN_ATTRIBUTE_A_BAND_BOOST_FACTOR,
     GSCAN_ATTRIBUTE_A_BAND_PENALTY_FACTOR,
     GSCAN_ATTRIBUTE_A_BAND_MAX_BOOST,
+    GSCAN_ATTRIBUTE_LAZY_ROAM_HYSTERESIS,
+    GSCAN_ATTRIBUTE_ALERT_ROAM_RSSI_TRIGGER,
+    GSCAN_ATTRIBUTE_LAZY_ROAM_ENABLE,
 
     /* BSSID blacklist */
     GSCAN_ATTRIBUTE_BSSID_BLACKLIST_FLUSH = 100,
@@ -114,6 +117,7 @@ typedef enum {
     GSCAN_ATTRIBUTE_ANQPO_HS_LIST_SIZE,
     GSCAN_ATTRIBUTE_ANQPO_HS_NETWORK_ID,
     GSCAN_ATTRIBUTE_ANQPO_HS_NAI_REALM,
+    GSCAN_ATTRIBUTE_ANQPO_HS_ROAM_CONSORTIUM_ID,
     GSCAN_ATTRIBUTE_ANQPO_HS_PLMN,
 
     /* ePNO cfg */
@@ -1733,6 +1737,11 @@ public:
                 return result;
             }
             result = request.put(GSCAN_ATTRIBUTE_ANQPO_HS_NAI_REALM, mNetworks[i].realm, 256);
+            if (result < 0) {
+                return result;
+            }
+            result = request.put(GSCAN_ATTRIBUTE_ANQPO_HS_ROAM_CONSORTIUM_ID,
+                         mNetworks[i].roamingConsortiumIds, 128);
             if (result < 0) {
                 return result;
             }
