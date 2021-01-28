@@ -143,6 +143,9 @@ BOARD_SEPOLICY_DIRS += \
 BOARD_SECCOMP_POLICY := \
     device/amazon/suez/seccomp-policy
 
+# HIDL
+DEVICE_MANIFEST_FILE := device/amazon/suez/configs/manifest.xml
+
 # Shim Libraries
 LINKER_FORCED_SHIM_LIBS := \
     /system/lib/liblog.so|libshim_log.so \

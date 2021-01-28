@@ -147,6 +147,9 @@ PRODUCT_PACKAGES += \
     libwifi-hal-mt66xx \
     wpa_supplicant
 
+# Hidl
+include device/amazon/suez/hidl/hidl.mk
+
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
 # Get non-open-source specific aspects
