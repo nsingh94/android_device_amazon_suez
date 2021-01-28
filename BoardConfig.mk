@@ -157,19 +157,3 @@ BOARD_SECCOMP_POLICY := \
 
 # HIDL
 DEVICE_MANIFEST_FILE := device/amazon/suez/configs/manifest.xml
-
-# Shim Libraries
-LINKER_FORCED_SHIM_LIBS := \
-    /system/lib/liblog.so|libshim_log.so \
-    /system/lib64/liblog.so|libshim_log.so \
-    /system/vendor/lib/libcam_utils.so|libshim_ui.so \
-    /system/vendor/lib64/libcam_utils.so|libshim_ui.so \
-    /system/vendor/lib/libMtkOmxVdecEx.so|libshim_ui.so \
-    /system/vendor/lib/libMtkOmxVenc.so|libshim_ui.so \
-    /system/vendor/lib/libasp.so|libshim_parcel.so \
-    /system/vendor/lib64/libasp.so|libshim_parcel.so \
-    /system/vendor/bin/amzn_dha_hmac|libshim_drm.so \
-    /system/vendor/bin/amzn_dha_tool|libshim_drm.so \
-    /system/vendor/lib/libdrmmtkutil.so|libshim_drm.so \
-    /system/vendor/lib64/libdrmmtkutil.so|libshim_drm.so \
-    /system/vendor/lib/libwvm.so|libshim_wvm.so
