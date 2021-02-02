@@ -108,12 +108,6 @@ PRODUCT_PACKAGES += \
     libion \
     libdrm
 
-# Graphics (MTK)
-PRODUCT_PACKAGES += \
-    libgui_ext \
-    libui_ext \
-    libgralloc_extra
-
 # Lights
 PRODUCT_PACKAGES += \
     lights.mt8173
