@@ -125,6 +125,10 @@ PRODUCT_PACKAGES += \
     ebtables \
     ethertypes
 
+
+# Sensor
+    libsensorndkbridge
+
 # WiFi
 PRODUCT_PACKAGES += \
     libwpa_client \
