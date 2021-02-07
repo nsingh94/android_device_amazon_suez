@@ -19,6 +19,10 @@
 #include "android_drv.h"
 #endif
 
+#ifndef os_strncpy
+#define os_strncpy(d, s, n) strncpy((d), (s), (n))
+#endif
+
 /*int send_and_recv_msgs(struct wpa_driver_nl80211_data *drv, struct nl_msg *msg,
 		       int (*valid_handler)(struct nl_msg *, void *),
 		       void *valid_data);*/
