@@ -117,24 +117,6 @@ DEVICE_RESOLUTION := 1200x1920
 # Disable API check
 WITHOUT_CHECK_API := true
 
-# Audio
-BOARD_USES_MTK_AUDIO := true
-# Disable memcpy opt (for audio libraries)
-TARGET_CPU_MEMCPY_OPT_DISABLE := true
-
-# OMX
-TARGET_OMX_LEGACY_RESCALING:= true
-
-# MediaTek Legacy AV Blob
-BOARD_USES_LEGACY_MTK_AV_BLOB := true
-
-# Camera
-TARGET_HAS_LEGACY_CAMERA_HAL1 := true
-TARGET_CAMERASERVICE_CLOSES_NATIVE_HANDLES := true
-TARGET_NEEDS_LEGACY_CAMERA_HAL1_DYN_NATIVE_HANDLE := true
-#TARGET_SPECIFIC_CAMERA_PARAMETER_LIBRARY := libcamera_parameters_mtk
-TARGET_HAS_LEGACY_LP_CAM := true
-
 # SELinux
 BOARD_SEPOLICY_DIRS += \
         device/amazon/suez/sepolicy-mtk/basic/non_plat \
