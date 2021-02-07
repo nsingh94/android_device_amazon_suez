@@ -127,6 +127,7 @@ PRODUCT_PACKAGES += \
 
 
 # Sensor
+PRODUCT_PACKAGES += \
     libsensorndkbridge
 
 # WiFi
