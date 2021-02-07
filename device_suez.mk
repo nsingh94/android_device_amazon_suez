@@ -137,6 +137,10 @@ PRODUCT_PACKAGES += \
     libwifi-hal-mt66xx \
     wpa_supplicant
 
+# VNDK-SP:
+PRODUCT_PACKAGES += \
+    vndk-sp
+
 # Hidl
 include device/amazon/suez/hidl/hidl.mk
 
