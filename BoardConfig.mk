@@ -155,5 +155,6 @@ BOARD_PLAT_PRIVATE_SEPOLICY_DIR += \
 BOARD_SECCOMP_POLICY := \
     device/amazon/suez/seccomp-policy
 
-# HIDL
+# Manifest
 DEVICE_MANIFEST_FILE := device/amazon/suez/configs/manifest.xml
+DEVICE_MATRIX_FILE   := device/amazon/suez/configs/compatibility_matrix.xml
