@@ -109,8 +109,6 @@ on post-fs-data
     chmod 0770 /data/key_provisioning
     chown system system /data/key_provisioning
 
-    start kisd
-
     # Memtrack alignment between FOS devices
     chown system system /d/ion/heaps/ion_mm_heap
 
@@ -236,11 +234,11 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
-    # RPMB service
-    start rpmb_svc
-
-    start amzn_drmprov
-    start amzn_dha_hmac
+    # DRM service
+#    start kisd
+#    start rpmb_svc
+#    start amzn_drmprov
+#    start amzn_dha_hmac
 
 on boot
     # Adjust minimum free memory space (default is 2.5M)
@@ -324,12 +322,10 @@ on property:vold.decrypt=trigger_reset_main
     write /proc/bootprof "trigger_reset_main"
 
 on property:vold.decrypt=trigger_restart_min_framework
-    start msensord
     write /proc/bootprof "trigger_restart_min_framework"
 
 on property:vold.decrypt=trigger_restart_framework
     start nvram_daemon
-    start msensord
     write /proc/bootprof "trigger_restart_framework"
 
 on property:vold.decrypt=trigger_shutdown_framework
@@ -387,6 +383,7 @@ service bat_logging /vendor/bin/battery_lifetime_data
 service kisd /vendor/bin/kisd
 	user root
 	group system drmrpc
+	disabled
 
 ## mtk printk uart controller
 on property:persist.uartconsole.enable=1
@@ -492,10 +489,6 @@ service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
     disabled
     oneshot
 
-service msensord /vendor/bin/msensord
-    class main
-    oneshot
-
 service thermal_manager /vendor/bin/thermal_manager
     class main
     user root
@@ -508,15 +501,7 @@ service pvrsrvctl /vendor/bin/pvrsrvctl --no-module  --start
 	group root
 	oneshot
  
-# GuiExt Server init
-service guiext-server /vendor/bin/guiext-server
-    class main
-    user system
-    group system graphics
-
 service rpmb_svc /vendor/bin/rpmb_svc
     class main
     group system drmrpc
     disabled
-
-

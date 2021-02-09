@@ -28,6 +28,14 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,device/amazon/suez/rootdir,root)
 
+# Audio Config files
+PRODUCT_COPY_FILES += \
+    device/amazon/suez/configs/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+    device/amazon/suez/configs/audio/audio_effects.xml:system/vendor/etc/audio_effects.xml \
+    device/amazon/suez/configs/audio/audio_policy.conf:system/etc/audio_policy.conf \
+    device/amazon/suez/configs/audio/mixer_paths.xml:system/etc/mixer_paths.xml \
+    device/amazon/suez/configs/audio/AudioParamOptions.xml:system/etc/audio_param/AudioParamOptions.xml
+
 # Media Config files
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
@@ -39,11 +47,7 @@ PRODUCT_COPY_FILES += \
     device/amazon/suez/configs/media/media_codecs_mediatek_video.xml:system/etc/media_codecs_mediatek_video.xml \
     device/amazon/suez/configs/media/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
     device/amazon/suez/configs/media/media_profiles.xml:system/etc/media_profiles.xml \
-    device/amazon/suez/configs/media/mtk_omx_core.cfg:system/etc/mtk_omx_core.cfg
-
-# Graphics Config files
-PRODUCT_COPY_FILES += \
-    device/amazon/suez/configs/graphics/powervr.ini:system/etc/powervr.ini
+    device/amazon/suez/configs/media/mtk_omx_core.cfg:system/vendor/etc/mtk_omx_core.cfg
 
 # Thermal Config files
 PRODUCT_COPY_FILES += \
@@ -76,13 +80,11 @@ PRODUCT_COPY_FILES += \
     device/amazon/suez/configs/usr/keylayout/Vendor_20a0_Product_0004.kl:system/usr/keylayout/Vendor_20a0_Product_0004.kl \
     device/amazon/suez/configs/usr/keylayout/Vendor_2836_Product_0001.kl:system/usr/keylayout/Vendor_2836_Product_0001.kl
 
-# Audio Config files
+# Usr Config files
 PRODUCT_COPY_FILES += \
-    device/amazon/suez/configs/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
-    device/amazon/suez/configs/audio/audio_effects.xml:system/vendor/etc/audio_effects.xml \
-    device/amazon/suez/configs/audio/audio_policy.conf:system/etc/audio_policy.conf \
-    device/amazon/suez/configs/audio/mixer_paths.xml:system/etc/mixer_paths.xml \
-    device/amazon/suez/configs/audio/AudioParamOptions.xml:system/etc/audio_param/AudioParamOptions.xml
+    device/amazon/suez/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
+    device/amazon/suez/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+    device/amazon/suez/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -108,46 +110,29 @@ PRODUCT_PACKAGES += \
     libion \
     libdrm
 
-# Graphics (MTK)
-PRODUCT_PACKAGES += \
-    libgui_ext \
-    libui_ext \
-    libgralloc_extra
-
 # Lights
 PRODUCT_PACKAGES += \
     lights.mt8173
-
-# Power
-PRODUCT_PACKAGES += \
-	power.default
-
-# network
-PRODUCT_PACKAGES += \
-    netd
-    
-# IPv6 tethering
-PRODUCT_PACKAGES += \
-    ebtables \
-    ethertypes
 
 # Shim Libraries
 PRODUCT_PACKAGES += \
     libshim_log \
     libshim_ui \
-	libshim_parcel \
-    libshim_drm \
-    libshim_wvm
+    libshim_parcel
 
-# WiFi
+# Wifi
 PRODUCT_PACKAGES += \
     libwpa_client \
     hostapd \
-    hostapd_cli \
-    libwifi-hal-mt66xx \
-    wpa_supplicant
+    dhcpcd.conf \
+    wpa_supplicant \
+    wpa_supplicant.conf
 
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
+# Network / IPv6
+PRODUCT_PACKAGES += \
+    netd \
+    ebtables \
+    ethertypes
 
 # Get non-open-source specific aspects
 $(call inherit-product-if-exists, vendor/amazon/suez/suez-vendor.mk)

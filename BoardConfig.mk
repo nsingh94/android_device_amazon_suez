@@ -50,21 +50,17 @@ MTK_HARDWARE := true
 # Binder API version
 TARGET_USES_64_BIT_BINDER := true
 
-# Flags
-TARGET_GLOBAL_CPPFLAGS += -DMTK_HARDWARE
-BOARD_GLOBAL_CFLAGS += -DMTK_HARDWARE -DCAMERA_VENDOR_L_COMPAT
-
 # WLAN
-BOARD_WLAN_DEVICE := MediaTek
+BOARD_WLAN_DEVICE := mt66xx
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 BOARD_HOSTAPD_DRIVER := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_mt66xx
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_mt66xx
 WIFI_DRIVER_FW_PATH_PARAM := /dev/wmtWifi
-WIFI_DRIVER_FW_PATH_STA:=STA
-WIFI_DRIVER_FW_PATH_AP:=AP
-WIFI_DRIVER_FW_PATH_P2P:=P2P
+WIFI_DRIVER_FW_PATH_STA:= STA
+WIFI_DRIVER_FW_PATH_AP:= AP
+WIFI_DRIVER_FW_PATH_P2P:= P2P
 WIFI_DRIVER_STATE_CTRL_PARAM := /dev/wmtWifi
 WIFI_DRIVER_STATE_ON := 1
 WIFI_DRIVER_STATE_OFF := 0
@@ -79,7 +75,6 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/amazon/suez/configs/blueto
 BOARD_WIDEVINE_OEMCRYPTO_LEVEL := 1
 
 # Graphics
-BOARD_EGL_CFG := device/amazon/suez/configs/graphics/egl.cfg
 USE_OPENGL_RENDERER := true
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_OVERLAY := true
@@ -91,13 +86,11 @@ BOARD_USES_LIBDRM := true
 
 # Surfaceflinger optimization for VD surfaces
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
-#NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 # Filesystem
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 17825792
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1692925952
-#BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x6b4300000 # 28792848384
 BOARD_CACHEIMAGE_PARTITION_SIZE := 444596224
 BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -117,24 +110,6 @@ DEVICE_RESOLUTION := 1200x1920
 # Disable API check
 WITHOUT_CHECK_API := true
 
-# Audio
-BOARD_USES_MTK_AUDIO := true
-# Disable memcpy opt (for audio libraries)
-TARGET_CPU_MEMCPY_OPT_DISABLE := true
-
-# OMX
-TARGET_OMX_LEGACY_RESCALING:= true
-
-# MediaTek Legacy AV Blob
-BOARD_USES_LEGACY_MTK_AV_BLOB := true
-
-# Camera
-TARGET_HAS_LEGACY_CAMERA_HAL1 := true
-TARGET_CAMERASERVICE_CLOSES_NATIVE_HANDLES := true
-TARGET_NEEDS_LEGACY_CAMERA_HAL1_DYN_NATIVE_HANDLE := true
-#TARGET_SPECIFIC_CAMERA_PARAMETER_LIBRARY := libcamera_parameters_mtk
-TARGET_HAS_LEGACY_LP_CAM := true
-
 # SELinux
 BOARD_SEPOLICY_DIRS += \
     device/amazon/suez/sepolicy
@@ -147,14 +122,8 @@ BOARD_SECCOMP_POLICY := \
 LINKER_FORCED_SHIM_LIBS := \
     /system/lib/liblog.so|libshim_log.so \
     /system/lib64/liblog.so|libshim_log.so \
-    /system/vendor/lib/libcam_utils.so|libshim_ui.so \
-    /system/vendor/lib64/libcam_utils.so|libshim_ui.so \
-    /system/vendor/lib/libMtkOmxVdecEx.so|libshim_ui.so \
-    /system/vendor/lib/libMtkOmxVenc.so|libshim_ui.so \
     /system/vendor/lib/libasp.so|libshim_parcel.so \
-    /system/vendor/lib64/libasp.so|libshim_parcel.so \
-    /system/vendor/bin/amzn_dha_hmac|libshim_drm.so \
-    /system/vendor/bin/amzn_dha_tool|libshim_drm.so \
-    /system/vendor/lib/libdrmmtkutil.so|libshim_drm.so \
-    /system/vendor/lib64/libdrmmtkutil.so|libshim_drm.so \
-    /system/vendor/lib/libwvm.so|libshim_wvm.so
+    /system/vendor/lib/libcam_utils.so|libshim_ui.so \
+    /system/vendor/lib/libMtkOmxVenc.so|libshim_ui.so \
+    /system/vendor/lib/libui_ext.so|libshim_ui.so \
+    /system/vendor/lib64/libui_ext.so|libshim_ui.so

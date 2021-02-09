@@ -35,4 +35,3 @@ ifeq ($(strip $(TARGET_BUILD_VARIANT)),eng)
 endif
 
 include $(BUILD_SHARED_LIBRARY)
-
