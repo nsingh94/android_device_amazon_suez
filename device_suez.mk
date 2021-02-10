@@ -114,6 +114,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lights.mt8173
 
+# Power HAL
+PRODUCT_PACKAGES += \
+    power.mt8173
+
 # Shim Libraries
 PRODUCT_PACKAGES += \
     libshim_log \
