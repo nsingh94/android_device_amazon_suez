@@ -48,6 +48,3 @@ ro.mediatek.platform=MT8173
 mtk_in_house_tee_support=true
 ro.mtk_sec_video_path_support=1
 persist.mtk.wcn.combo.chipid=-1
-
-ro.radio.noril=1
-ro.carrier=wifi-only

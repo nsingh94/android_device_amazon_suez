@@ -132,6 +132,11 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
+# Wifi Only
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.carrier=wifi-only \
+    ro.radio.noril=1
+
 # Network / IPv6
 PRODUCT_PACKAGES += \
     netd \
