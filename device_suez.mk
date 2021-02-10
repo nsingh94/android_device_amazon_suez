@@ -30,11 +30,17 @@ PRODUCT_COPY_FILES += \
 
 # Audio Config files
 PRODUCT_COPY_FILES += \
+    device/amazon/suez/configs/audio/AudioParamOptions.xml:system/vendor/etc/audio_param/AudioParamOptions.xml \
     device/amazon/suez/configs/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
     device/amazon/suez/configs/audio/audio_effects.xml:system/vendor/etc/audio_effects.xml \
-    device/amazon/suez/configs/audio/audio_policy.conf:system/etc/audio_policy.conf \
-    device/amazon/suez/configs/audio/mixer_paths.xml:system/etc/mixer_paths.xml \
-    device/amazon/suez/configs/audio/AudioParamOptions.xml:system/etc/audio_param/AudioParamOptions.xml
+    device/amazon/suez/configs/audio/audio_policy.conf:system/vendor/etc/audio_policy.conf \
+    device/amazon/suez/configs/audio/audio_policy_configuration.xml:system/vendor/etc/audio_policy_configuration.xml \
+    device/amazon/suez/configs/audio/audio_policy_configuration_stub.xml:system/vendor/etc/audio_policy_configuration_stub.xml \
+    device/amazon/suez/configs/audio/audio_policy_volumes.xml:system/vendor/etc/audio_policy_volumes.xml \
+    device/amazon/suez/configs/audio/default_volume_tables.xml:system/vendor/etc/default_volume_tables.xml \
+    device/amazon/suez/configs/audio/hearing_aid_audio_policy_configuration.xml:system/vendor/etc/hearing_aid_audio_policy_configuration.xml \
+    device/amazon/suez/configs/audio/mixer_paths.xml:system/vendor/etc/mixer_paths.xml \
+    device/amazon/suez/configs/audio/r_submix_audio_policy_configuration.xml:system/vendor/etc/r_submix_audio_policy_configuration.xml
 
 # Media Config files
 PRODUCT_COPY_FILES += \
