@@ -28,20 +28,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,device/amazon/suez/rootdir,root)
 
-# Audio Config files
-PRODUCT_COPY_FILES += \
-    device/amazon/suez/configs/audio/AudioParamOptions.xml:system/vendor/etc/audio_param/AudioParamOptions.xml \
-    device/amazon/suez/configs/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
-    device/amazon/suez/configs/audio/audio_effects.xml:system/vendor/etc/audio_effects.xml \
-    device/amazon/suez/configs/audio/audio_policy.conf:system/vendor/etc/audio_policy.conf \
-    device/amazon/suez/configs/audio/audio_policy_configuration.xml:system/vendor/etc/audio_policy_configuration.xml \
-    device/amazon/suez/configs/audio/audio_policy_configuration_stub.xml:system/vendor/etc/audio_policy_configuration_stub.xml \
-    device/amazon/suez/configs/audio/audio_policy_volumes.xml:system/vendor/etc/audio_policy_volumes.xml \
-    device/amazon/suez/configs/audio/default_volume_tables.xml:system/vendor/etc/default_volume_tables.xml \
-    device/amazon/suez/configs/audio/hearing_aid_audio_policy_configuration.xml:system/vendor/etc/hearing_aid_audio_policy_configuration.xml \
-    device/amazon/suez/configs/audio/mixer_paths.xml:system/vendor/etc/mixer_paths.xml \
-    device/amazon/suez/configs/audio/r_submix_audio_policy_configuration.xml:system/vendor/etc/r_submix_audio_policy_configuration.xml
-
 # Media Config files
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
@@ -52,15 +38,7 @@ PRODUCT_COPY_FILES += \
     device/amazon/suez/configs/media/media_codecs_mediatek_audio.xml:system/etc/media_codecs_mediatek_audio.xml \
     device/amazon/suez/configs/media/media_codecs_mediatek_video.xml:system/etc/media_codecs_mediatek_video.xml \
     device/amazon/suez/configs/media/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
-    device/amazon/suez/configs/media/media_profiles.xml:system/etc/media_profiles.xml \
-    device/amazon/suez/configs/media/mtk_omx_core.cfg:system/vendor/etc/mtk_omx_core.cfg
-
-# Thermal Config files
-PRODUCT_COPY_FILES += \
-    device/amazon/suez/configs/thermal/.ht120.mtc:system/etc/.tp/.ht120.mtc \
-    device/amazon/suez/configs/thermal/thermal.conf:system/etc/.tp/thermal.conf \
-    device/amazon/suez/configs/thermal/thermal.off.conf:system/etc/.tp/thermal.off.conf \
-    device/amazon/suez/configs/thermal/thermal.policy.conf:system/etc/.tp/thermal.policy.conf
+    device/amazon/suez/configs/media/media_profiles.xml:system/etc/media_profiles.xml
 
 # Usr Config files
 PRODUCT_COPY_FILES += \
