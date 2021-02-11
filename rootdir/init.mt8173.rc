@@ -88,8 +88,6 @@ on post-fs-data
 
     mkdir /data/drm/wv 0770 drm system
 
-# -----------------------
-# Add by MTK
     # dhcp server
     mkdir /data/misc/dhcp 0770 dhcp wifi
     chown dhcp wifi /data/misc/dhcp
@@ -138,31 +136,31 @@ on post-fs-data
     #set mlock limit to infinate (for m4u operation)
     setrlimit 8 -1 -1
 
-    chmod 0660 /sys/class/misc/m_acc_misc/accenablenodata	
-    chmod 0660 /sys/class/misc/m_acc_misc/accactive	
-    chmod 0660 /sys/class/misc/m_acc_misc/accdelay	
-    chmod 0660 /sys/class/misc/m_acc_misc/accbatch	
-    chmod 0660 /sys/class/misc/m_acc_misc/accflush	
-    chown system system /sys/class/misc/m_acc_misc/accenablenodata	
-    chown system system /sys/class/misc/m_acc_misc/accactive	
-    chown system system /sys/class/misc/m_acc_misc/accdelay	
-    chown system system /sys/class/misc/m_acc_misc/accbatch	
+    chmod 0660 /sys/class/misc/m_acc_misc/accenablenodata
+    chmod 0660 /sys/class/misc/m_acc_misc/accactive
+    chmod 0660 /sys/class/misc/m_acc_misc/accdelay
+    chmod 0660 /sys/class/misc/m_acc_misc/accbatch
+    chmod 0660 /sys/class/misc/m_acc_misc/accflush
+    chown system system /sys/class/misc/m_acc_misc/accenablenodata
+    chown system system /sys/class/misc/m_acc_misc/accactive
+    chown system system /sys/class/misc/m_acc_misc/accdelay
+    chown system system /sys/class/misc/m_acc_misc/accbatch
     chown system system /sys/class/misc/m_acc_misc/accflush
-    chmod 0660 /sys/class/misc/m_alsps_misc/alsactive	
-    chmod 0660 /sys/class/misc/m_alsps_misc/alsdelay	
-    chmod 0660 /sys/class/misc/m_alsps_misc/alsbatch	
-    chmod 0660 /sys/class/misc/m_alsps_misc/alsflush	
-    chmod 0660 /sys/class/misc/m_alsps_misc/psactive	
-    chmod 0660 /sys/class/misc/m_alsps_misc/psdelay	
-    chmod 0660 /sys/class/misc/m_alsps_misc/psbatch	
-    chmod 0660 /sys/class/misc/m_alsps_misc/psflush	
-    chown system system /sys/class/misc/m_alsps_misc/alsactive	
-    chown system system /sys/class/misc/m_alsps_misc/alsdelay	
-    chown system system /sys/class/misc/m_alsps_misc/alsbatch	
-    chown system system /sys/class/misc/m_alsps_misc/alsflush	
-    chown system system /sys/class/misc/m_alsps_misc/psactive	
-    chown system system /sys/class/misc/m_alsps_misc/psdelay	
-    chown system system /sys/class/misc/m_alsps_misc/psbatch	
+    chmod 0660 /sys/class/misc/m_alsps_misc/alsactive
+    chmod 0660 /sys/class/misc/m_alsps_misc/alsdelay
+    chmod 0660 /sys/class/misc/m_alsps_misc/alsbatch
+    chmod 0660 /sys/class/misc/m_alsps_misc/alsflush
+    chmod 0660 /sys/class/misc/m_alsps_misc/psactive
+    chmod 0660 /sys/class/misc/m_alsps_misc/psdelay
+    chmod 0660 /sys/class/misc/m_alsps_misc/psbatch
+    chmod 0660 /sys/class/misc/m_alsps_misc/psflush
+    chown system system /sys/class/misc/m_alsps_misc/alsactive
+    chown system system /sys/class/misc/m_alsps_misc/alsdelay
+    chown system system /sys/class/misc/m_alsps_misc/alsbatch
+    chown system system /sys/class/misc/m_alsps_misc/alsflush
+    chown system system /sys/class/misc/m_alsps_misc/psactive
+    chown system system /sys/class/misc/m_alsps_misc/psdelay
+    chown system system /sys/class/misc/m_alsps_misc/psbatch
     chown system system /sys/class/misc/m_alsps_misc/psflush
 
     mkdir /data/amit/ 0770 system system
@@ -173,7 +171,7 @@ on post-fs-data
     chmod 0660 /data/misc/acdapi/calib.dat
     chmod 0660 /data/misc/acdapi/param.dat
     chmod 0660 /data/misc/acdapi/sensors.dat
-    mkdir	/data/data/mcube 0664 system system
+    mkdir /data/data/mcube 0664 system system
 
     # EM CPU Speed Stress
     chown root radio /proc/cpu_ss/cpu_ss_debug_mode
@@ -192,7 +190,7 @@ on post-fs-data
     mkdir /data/@btmtk 0770 bluetooth net_bt
     chown bluetooth bluetooth /data/@btmtk/host_cache
     chown bluetooth bluetooth /data/@btmtk/dev_cache
-    chown bluetooth bluetooth /dev/hid-keyboard	
+    chown bluetooth bluetooth /dev/hid-keyboard
     chmod 0660 /dev/hid-keyboard
     #Use uinput's default permission
     chown system net_bt_admin /dev/uinput
@@ -204,7 +202,7 @@ on post-fs-data
     # ASP
     chmod 0666 /proc/idme/miccal.0
 
-    chmod 0664 /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario	
+    chmod 0664 /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario
     chown media media /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario
 
     #autok
@@ -222,23 +220,20 @@ on post-fs-data
     # secure memory
     chown system system /proc/secmem0
 
-    # mcDriverDaemon	
-    mkdir /data/app/mcRegistry 0775 system system	
+    # mcDriverDaemon
+    mkdir /data/app/mcRegistry 0775 system system
     mkdir /data/app/mcRegistry/TbStorage 0775 system system
 
     # Thermal
     mkdir /data/.tp/ 0775 system system
 
-# End of adding by MTK drivers
-# -----------------------
+    # DRM service
+    start kisd
+    start rpmb_svc
+    start amzn_drmprov
+    start amzn_dha_hmac
 
     setprop vold.post_fs_data_done 1
-
-    # DRM service
-#    start kisd
-#    start rpmb_svc
-#    start amzn_drmprov
-#    start amzn_dha_hmac
 
 on boot
     # Adjust minimum free memory space (default is 2.5M)
@@ -247,11 +242,11 @@ on boot
 
     chmod 0660 /sys/power/autosleep
 
-    chown system system /sys/devices/system/cpu/cpufreq/hotplug/cpu_num_base	
+    chown system system /sys/devices/system/cpu/cpufreq/hotplug/cpu_num_base
     chmod 0660 /sys/devices/system/cpu/cpufreq/hotplug/cpu_num_base
 
     chown root   system /sys/kernel/debug/binder/transaction_log_enable
-	chown root   system /sys/kernel/debug/binder/perf_evalue
+    chown root   system /sys/kernel/debug/binder/perf_evalue
 
     chmod 0664 /sys/class/leds/lcd-backlight/brightness
     chown system system /sys/class/leds/lcd-backlight/trigger
@@ -320,9 +315,9 @@ on property:init.svc.bootanim=running
 on property:dev.bootcomplete=1
     write /proc/bootprof "Boot completed"
 
-on property:ro.board.platform=mt8173	
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq	
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq	
+on property:ro.board.platform=mt8173
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
     write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1300000
 
 on property:vold.decrypt=trigger_reset_main
@@ -357,18 +352,18 @@ on property:sys.touch_gesture_wakeup=0
     write /sys/bus/i2c/devices/7-0038/ftsgesturewakeup 0
 
 service amzn_drmprov /vendor/bin/amzn_drmprov_check
-	class main
-	user root
-	group system
-	oneshot
-	disabled
+    class main
+    user root
+    group system
+    oneshot
+    disabled
 
 service amzn_dha_hmac /vendor/bin/amzn_dha_hmac
-	class main
-	user root
-	group system
-	oneshot
-	disabled
+    class main
+    user root
+    group system
+    oneshot
+    disabled
 
 service wmtLoader /vendor/bin/wmt_loader
     user root
@@ -388,9 +383,9 @@ service bat_logging /vendor/bin/battery_lifetime_data
     group root
 
 service kisd /vendor/bin/kisd
-	user root
-	group system drmrpc
-	disabled
+    user root
+    group system drmrpc
+    disabled
 
 ## mtk printk uart controller
 on property:persist.uartconsole.enable=1
@@ -503,10 +498,10 @@ service thermal_manager /vendor/bin/thermal_manager
 
 # IMG GPU init
 service pvrsrvctl /vendor/bin/pvrsrvctl --no-module  --start
-	class core
-	user root
-	group root
-	oneshot
+    class core
+    user root
+    group root
+    oneshot
  
 service rpmb_svc /vendor/bin/rpmb_svc
     class main

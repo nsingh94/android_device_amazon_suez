@@ -87,7 +87,7 @@ PRODUCT_PACKAGES += \
     
 # Bluetooth
 PRODUCT_PACKAGES += \
-	bluetooth.default
+    bluetooth.default
 
 # Graphics
 PRODUCT_PACKAGES += \
@@ -105,7 +105,8 @@ PRODUCT_PACKAGES += \
 # Shim Libraries
 PRODUCT_PACKAGES += \
     libshim_log \
-    libshim_ui
+    libshim_ui \
+    libshim_drm
 
 # Wifi
 PRODUCT_PACKAGES += \
