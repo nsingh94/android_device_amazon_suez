@@ -20,16 +20,6 @@ LOCAL_PROPRIETARY_MODULE := true
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
-LOCAL_SRC_FILES := parcel/parcel_shim.cpp
-LOCAL_SHARED_LIBRARIES := libbinder
-LOCAL_MODULE := libshim_parcel
-LOCAL_CFLAGS := -Wno-unused-parameter
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-LOCAL_PROPRIETARY_MODULE := true
-include $(BUILD_SHARED_LIBRARY)
-
-include $(CLEAR_VARS)
 LOCAL_SRC_FILES := wvm/wvm_shim.cpp
 LOCAL_SHARED_LIBRARIES := libstagefright_foundation liblog libmedia libcutils
 LOCAL_MODULE := libshim_wvm
