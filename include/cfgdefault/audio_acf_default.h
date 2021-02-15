@@ -290,7 +290,7 @@
     #define BES_LOUDNESS_GAIN_MAP_IN \
     -45, -44, -43, -18,  0
    
-    #define BES_LOUDNESS_GAIN_MAP_OUT \            
+    #define BES_LOUDNESS_GAIN_MAP_OUT \
     12, 12, 12, 12, 0
 
 	#define BES_LOUDNESS_ATT_TIME	0xa4
@@ -398,7 +398,7 @@
     #define BES_LOUDNESS_GAIN_MAP_IN \
     0, 0, 0, 0,  0
               
-    #define BES_LOUDNESS_GAIN_MAP_OUT \            
+    #define BES_LOUDNESS_GAIN_MAP_OUT \
     0, 0, 0, 0, 0   
 #endif
 #endif

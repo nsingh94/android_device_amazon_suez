@@ -1,7 +1,7 @@
 #ifndef ANDROID_AUDIOCUSTOMVOLUME_H
 #define ANDROID_AUDIOCUSTOMVOLUME_H
-#include <CFG_AUDIO_File.h>
-#include <AudioMTKHardwareCommand.h>
+#include "cfgdefault/CFG_Audio_Default.h"
+#include "AudioMTKHardwareCommand.h"
 
 namespace android {
 
