@@ -12,9 +12,6 @@ on init
     # enable armv8_deprecated instruction hooks
     write /proc/sys/abi/swp 1
 
-    # Create nvdata mount point
-    mkdir /nvdata 0771 system system
-
 on charger
     start charger
 
@@ -34,7 +31,6 @@ on fs
     symlink /dev/block/platform/mtk-msdc.0/by-name/kb /dev/kb
     symlink /dev/block/platform/mtk-msdc.0/by-name/dkb /dev/dkb
     symlink /dev/block/platform/mtk-msdc.0/by-name/proinfo /dev/pro_info
-    symlink /dev/block/platform/mtk-msdc.0/by-name/nvram /dev/nvram
 
     exec /sbin/resize_ext4 /dev/block/platform/mtk-msdc.0/by-name/userdata footer
 
@@ -70,15 +66,8 @@ on post-fs
 
 on post-fs-data
     # create basic filesystem structure
-    # We chown/chmod /nvdata again so because mount is run as root + defaults
-    chown root system /nvdata
-    chmod 0771 /nvdata
-    symlink /nvdata /data/nvram
-    mkdir /nvdata/media 0771 media audio
-    chmod 0660 /data/misc/wifi/p2p_supplicant.conf
-
-    # Set SELinux security contexts on upgrade or policy update.
-    restorecon_recursive /nvdata
+    mkdir /data/nvram 2771 root system
+    mkdir /data/nvram/media 0770 media audio
 
     #give system access to rfkill device node
     chmod 0660 /dev/rfkill
@@ -97,6 +86,7 @@ on post-fs-data
     chown dhcp wifi /data/misc/wide-dhcpv6
 
     # WiFi
+    chmod 0660 /data/misc/wifi/p2p_supplicant.conf
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/wpa_supplicant 0770 wifi wifi
