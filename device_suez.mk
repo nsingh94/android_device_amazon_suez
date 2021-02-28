@@ -66,12 +66,6 @@ PRODUCT_COPY_FILES += \
     device/amazon/suez/configs/usr/keylayout/Vendor_20a0_Product_0004.kl:system/usr/keylayout/Vendor_20a0_Product_0004.kl \
     device/amazon/suez/configs/usr/keylayout/Vendor_2836_Product_0001.kl:system/usr/keylayout/Vendor_2836_Product_0001.kl
 
-# Usr Config files
-PRODUCT_COPY_FILES += \
-    device/amazon/suez/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
-    device/amazon/suez/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    device/amazon/suez/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
-
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
