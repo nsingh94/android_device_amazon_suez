@@ -125,4 +125,5 @@ LINKER_FORCED_SHIM_LIBS := \
     /system/vendor/lib/libcam_utils.so|libshim_ui.so \
     /system/vendor/lib/libMtkOmxVenc.so|libshim_ui.so \
     /system/vendor/lib/libui_ext.so|libshim_ui.so \
-    /system/vendor/lib64/libui_ext.so|libshim_ui.so
+    /system/vendor/lib64/libui_ext.so|libshim_ui.so \
+    /system/vendor/lib/libstagefright_soft_ddpdec.so|libshim_dolby.so

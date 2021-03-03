@@ -104,7 +104,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libshim_log \
     libshim_ui \
-    libshim_drm
+    libshim_drm \
+    libshim_dolby
 
 # Wifi
 PRODUCT_PACKAGES += \
