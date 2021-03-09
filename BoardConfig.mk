@@ -108,24 +108,7 @@ TARGET_SCREEN_WIDTH := 1200
 TARGET_SCREEN_HEIGHT := 1920
 DEVICE_RESOLUTION := 1200x1920
 
-# Disable API check
-WITHOUT_CHECK_API := true
-
-# SELinux
-BOARD_SEPOLICY_DIRS += \
-    device/amazon/suez/sepolicy
-
-# Media Extractors
-BOARD_SECCOMP_POLICY := \
-    device/amazon/suez/seccomp-policy
-
 # Shim Libraries
 LINKER_FORCED_SHIM_LIBS := \
     /system/lib/liblog.so|libshim_log.so \
-    /system/lib64/liblog.so|libshim_log.so \
-    /system/vendor/bin/amzn_dha_hmac|libshim_drm.so \
-    /system/vendor/bin/amzn_dha_tool|libshim_drm.so \
-    /system/vendor/lib/libcam_utils.so|libshim_ui.so \
-    /system/vendor/lib/libMtkOmxVenc.so|libshim_ui.so \
-    /system/vendor/lib/libui_ext.so|libshim_ui.so \
-    /system/vendor/lib64/libui_ext.so|libshim_ui.so
+    /system/lib64/liblog.so|libshim_log.so
