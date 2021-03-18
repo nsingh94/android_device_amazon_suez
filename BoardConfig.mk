@@ -107,8 +107,3 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/mt_usb/musb-hdrc.0.auto
 TARGET_SCREEN_WIDTH := 1200
 TARGET_SCREEN_HEIGHT := 1920
 DEVICE_RESOLUTION := 1200x1920
-
-# Shim Libraries
-LINKER_FORCED_SHIM_LIBS := \
-    /system/lib/liblog.so|libshim_log.so \
-    /system/lib64/liblog.so|libshim_log.so
