@@ -493,7 +493,13 @@ service pvrsrvctl /vendor/bin/pvrsrvctl --no-module  --start
     user root
     group root
     oneshot
- 
+
+# GuiExt Server init
+service guiext-server /vendor/bin/guiext-server
+    class main
+    user system
+    group system graphics
+
 service rpmb_svc /vendor/bin/rpmb_svc
     class main
     group system drmrpc
