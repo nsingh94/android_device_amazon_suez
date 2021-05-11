@@ -30,48 +30,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,device/amazon/suez/rootdir,root)
 
-# Media Config files
-PRODUCT_COPY_FILES += \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
-    device/amazon/suez/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
-    device/amazon/suez/configs/media/media_codecs_mediatek_audio.xml:system/etc/media_codecs_mediatek_audio.xml \
-    device/amazon/suez/configs/media/media_codecs_mediatek_video.xml:system/etc/media_codecs_mediatek_video.xml \
-    device/amazon/suez/configs/media/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
-    device/amazon/suez/configs/media/media_profiles.xml:system/etc/media_profiles.xml
-
-# Usr Config files
-PRODUCT_COPY_FILES += \
-    device/amazon/suez/configs/usr/idc/amazon_touch.idc:system/usr/idc/amazon_touch.idc \
-    device/amazon/suez/configs/usr/idc/lightning-device.idc:system/usr/idc/lightning-device.idc \
-    device/amazon/suez/configs/usr/keychars/lightning-device.kcm:system/usr/keychars/lightning-device.kcm \
-    device/amazon/suez/configs/usr/keylayout/ACCDET.kl:system/usr/keylayout/ACCDET.kl \
-    device/amazon/suez/configs/usr/keylayout/lightning-device.kl:system/usr/keylayout/lightning-device.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_0171_Product_040b.kl:system/usr/keylayout/Vendor_0171_Product_040b.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_0171_Product_040c.kl:system/usr/keylayout/Vendor_0171_Product_040c.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_0171_Product_0413.kl:system/usr/keylayout/Vendor_0171_Product_0413.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_045e_Product_0291.kl:system/usr/keylayout/Vendor_045e_Product_0291.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_046d_Product_c21e.kl:system/usr/keylayout/Vendor_046d_Product_c21e.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_054c_Product_05c4.kl:system/usr/keylayout/Vendor_054c_Product_05c4.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_057e_Product_0306.kl:system/usr/keylayout/Vendor_057e_Product_0306.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_1949_Product_0402.kl:system/usr/keylayout/Vendor_1949_Product_0402.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_1949_Product_0404.kl:system/usr/keylayout/Vendor_1949_Product_0404.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_1949_Product_0406.kl:system/usr/keylayout/Vendor_1949_Product_0406.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_1949_Product_0407.kl:system/usr/keylayout/Vendor_1949_Product_0407.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_1949_Product_0409.kl:system/usr/keylayout/Vendor_1949_Product_0409.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_1949_Product_040a.kl:system/usr/keylayout/Vendor_1949_Product_040a.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_1949_Product_0415.kl:system/usr/keylayout/Vendor_1949_Product_0415.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_20a0_Product_0004.kl:system/usr/keylayout/Vendor_20a0_Product_0004.kl \
-    device/amazon/suez/configs/usr/keylayout/Vendor_2836_Product_0001.kl:system/usr/keylayout/Vendor_2836_Product_0001.kl
-
-# Usr Config files
-PRODUCT_COPY_FILES += \
-    device/amazon/suez/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
-    device/amazon/suez/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    device/amazon/suez/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
-
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
