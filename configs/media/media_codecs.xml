@@ -86,24 +86,4 @@ Only the three quirks included above are recognized at this point:
     <Include href="media_codecs_google_video_le.xml" />
     <Include href="media_codecs_google_telephony.xml" />
 
-    <Decoders>
-        <!-- DOLBY_UDC -->
-        <MediaCodec name="OMX.dolby.ac3.decoder" >
-            <Type name="audio/ac3" />
-            <Quirk name="needs-flush-before-disable" />
-            <Quirk name="requires-flush-complete-emulation" />
-        </MediaCodec>
-        <MediaCodec name="OMX.dolby.eac3.decoder" >
-            <Type name="audio/eac3" />
-            <Quirk name="needs-flush-before-disable" />
-            <Quirk name="requires-flush-complete-emulation" />
-        </MediaCodec>
-        <MediaCodec name="OMX.dolby.eac3_joc.decoder" >
-           <Type name="audio/eac3-joc" />
-             <Quirk name="needs-flush-before-disable" />
-             <Quirk name="requires-flush-complete-emulation" />
-        </MediaCodec>
-        <!-- DOLBY_UDC END -->
-    </Decoders>
-
 </MediaCodecs>
