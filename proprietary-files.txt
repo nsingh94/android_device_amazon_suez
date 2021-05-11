@@ -4,9 +4,7 @@ bin/amzn_dha_tool
 bin/amzn_drmprov_check
 bin/amzn_drmprov_tool
 bin/autokd
-bin/guiext-server
 bin/kisd
-bin/msensord
 bin/nvram_daemon
 bin/pq
 bin/rpmb_svc
