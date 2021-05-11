@@ -29,6 +29,11 @@ etc/firmware/SMicTD4.dat:vendor/firmware/SMicTD4.dat
 etc/firmware/SMicTD5.dat:vendor/firmware/SMicTD5.dat
 etc/firmware/SMicTD6.dat:vendor/firmware/SMicTD6.dat
 etc/firmware/WIFI_RAM_CODE_MT6630:vendor/firmware/WIFI_RAM_CODE_MT6630
+etc/media_codecs.xml
+etc/media_codecs_mediatek_audio.xml
+etc/media_codecs_mediatek_video.xml
+etc/media_codecs_performance.xml
+etc/media_profiles.xml
 etc/wifi/p2p_supplicant_overlay.conf
 etc/wifi/wpa_supplicant.conf
 etc/wifi/wpa_supplicant_overlay.conf
