@@ -10,6 +10,10 @@ bin/pq:vendor/bin/pq
 bin/rpmb_svc:vendor/bin/rpmb_svc
 bin/thermal_manager:vendor/bin/thermal_manager
 bin/wmt_loader:vendor/bin/wmt_loader
+etc/.tp/.ht120.mtc
+etc/.tp/thermal.conf
+etc/.tp/thermal.off.conf
+etc/.tp/thermal.policy.conf
 etc/firmware/mt6630_ant_m1.cfg:vendor/firmware/mt6630_ant_m1.cfg
 etc/firmware/mt6630_patch_e1_hdr.bin:vendor/firmware/mt6630_patch_e1_hdr.bin
 etc/firmware/mt6630_patch_e2_hdr.bin:vendor/firmware/mt6630_patch_e2_hdr.bin
