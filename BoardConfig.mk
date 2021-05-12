@@ -139,3 +139,7 @@ LINKER_FORCED_SHIM_LIBS := \
     /system/vendor/lib/libui_ext.so|libshim_ui.so \
     /system/vendor/lib64/libui_ext.so|libshim_ui.so \
     /system/vendor/lib/libstagefright_soft_ddpdec.so|libshim_dolby.so
+
+# VINTF
+DEVICE_MANIFEST_FILE := device/amazon/suez/configs/vintf/manifest.xml
+DEVICE_MATRIX_FILE   := device/amazon/suez/configs/vintf/compatibility_matrix.xml

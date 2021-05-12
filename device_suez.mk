@@ -30,6 +30,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,device/amazon/suez/rootdir,root)
 
+# HIDL
+include device/amazon/suez/hidl.mk
+
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
