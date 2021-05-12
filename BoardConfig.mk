@@ -128,16 +128,7 @@ BOARD_SECCOMP_POLICY := \
     device/amazon/suez/seccomp-policy
 
 # Shim Libraries
-LINKER_FORCED_SHIM_LIBS := \
-    /system/lib/liblog.so|libshim_log.so \
-    /system/lib64/liblog.so|libshim_log.so \
-    /system/vendor/bin/amzn_dha_hmac|libshim_drm.so \
-    /system/vendor/bin/amzn_dha_tool|libshim_drm.so \
-    /system/vendor/lib/libcam_utils.so|libshim_ui.so \
-    /system/vendor/lib/libMtkOmxVenc.so|libshim_ui.so \
-    /system/vendor/lib/libui_ext.so|libshim_ui.so \
-    /system/vendor/lib64/libui_ext.so|libshim_ui.so \
-    /system/vendor/lib/libstagefright_soft_ddpdec.so|libshim_dolby.so
+-include device/amazon/suez/shims.mk
 
 # VINTF
 DEVICE_MANIFEST_FILE := device/amazon/suez/configs/vintf/manifest.xml
