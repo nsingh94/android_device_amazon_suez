@@ -110,7 +110,19 @@ WITHOUT_CHECK_API := true
 
 # SELinux
 BOARD_SEPOLICY_DIRS += \
-    device/amazon/suez/sepolicy
+        device/amazon/suez/sepolicy-mtk/basic/non_plat \
+        device/amazon/suez/sepolicy-mtk/bsp/non_plat \
+        device/amazon/suez/sepolicy-mt8173/basic \
+        device/amazon/suez/sepolicy-mt8173/bsp \
+        device/amazon/suez/sepolicy
+
+BOARD_PLAT_PUBLIC_SEPOLICY_DIR += \
+        device/amazon/suez/sepolicy-mtk/basic/plat_public \
+        device/amazon/suez/sepolicy-mtk/bsp/plat_public
+
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR += \
+        device/amazon/suez/sepolicy-mtk/basic/plat_private \
+        device/amazon/suez/sepolicy-mtk/bsp/plat_private
 
 # Media Extractors
 BOARD_SECCOMP_POLICY := \
