@@ -68,6 +68,7 @@ PRODUCT_PACKAGES += \
 # Shim Libraries
 PRODUCT_PACKAGES += \
     libshim_log \
+    libshim_gui \
     libshim_ui \
     libshim_drm \
     libshim_dolby
